@@ -1,0 +1,16 @@
+.scrolledArea{
+    overflow-y: scroll;
+    scrollbar-width:  8px;
+    scrollbar-color: #8585AD  #2F2F37;
+    scroll-behavior: smooth;
+}
+
+.scrolledArea::-webkit-scrollbar {
+    width: 8px;
+}
+.scrolledArea::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+.scrolledArea::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}

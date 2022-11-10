@@ -1,0 +1,15 @@
+.burgerConstructorMain {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 16px;
+}
+
+.burgerConstructor {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 600px;
+    height: calc( 100vh - 168px);
+}
+

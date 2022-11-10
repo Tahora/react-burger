@@ -1,0 +1,10 @@
+.item {
+    flex-grow: 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.invisible {
+    visibility: hidden;
+}

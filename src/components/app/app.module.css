@@ -1,0 +1,12 @@
+.app{
+    padding: 40px;
+    width: 2000px;
+    box-sizing: border-box;
+}
+
+.content {
+    display: flex;
+    column-gap: 40px;
+    justify-content: center;
+
+}

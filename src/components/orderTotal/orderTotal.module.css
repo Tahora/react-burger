@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.totalIconContainer svg{
+    height: 36px;
+    width: 36px;
+}
+
+.icon {
+    height: 36px;
+    width: 36px;
+
+
+}
