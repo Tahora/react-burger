@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './constructorItem.module.css';
 import { ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 
 
@@ -15,4 +16,8 @@ export function ConstructorItem (props) {
             {ConstructorElement(props)}
         </div>
     )
+}
+
+ConstructorItem.propTypes = {
+    isLocked:PropTypes.bool
 }
