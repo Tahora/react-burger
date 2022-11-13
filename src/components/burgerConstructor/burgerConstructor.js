@@ -1,41 +1,39 @@
 import React from 'react';
 import styles from './burgerConstructor.module.css';
 import commonStyles from '../common.module.css';
-import { ConstructorItem} from '../constructorItem/constructorItem';
+import {ConstructorItem} from '../constructorItem/constructorItem';
 import {OrderTotal} from '../orderTotal/orderTotal';
 import {OrderDetails} from '../orderDetails/orderDetails';
-import {Modal} from "../modal/modal";
+import {Modal} from '../modal/modal';
 import PropTypes from 'prop-types';
+import {ingredientType} from '../../utils/types';
 
 
+export function BurgerConstructor(props) {
+    const mainItems = props.items;
+    const total = (props.bun ? props.bun.price * 2 : 0) +
+    props.items ? props.items.reduce((prevSum, i) => {
+        return prevSum + i.price;
+    }, 0) : 0;
 
+    const [modalState, setModalState] = React.useState();
 
-export function BurgerConstructor (props) {
-    const mainItems=props.items;
-    const total=(props.bun?props.bun.price*2:0)+
-        props.items? props.items.reduce((prevSum, i)=>{return prevSum+i.price;},0) : 0;
-
-    const [modalstate, setModalState]=React.useState();
-
-    function getOrderId(someparameter)
-    {
+    function getOrderId(someParameter) {
         return "034526";
     }
 
-    const showModal=(someparameter)=>(e)=>
-    {
-        setModalState(getOrderId(someparameter));
+    const showModal = (someParameter) => (e) => {
+        setModalState(getOrderId(someParameter));
     }
 
-    const hideModal=(e)=>
-    {
+    const hideModal = (e) => {
         setModalState();
     }
 
 
     return (
         <section className={`${styles.burgerConstructor} pt-25 pl-4`}>
-            {props.bun&&
+            {props.bun &&
                 <ConstructorItem
                     type="top"
                     isLocked={true}
@@ -45,10 +43,9 @@ export function BurgerConstructor (props) {
                 />}
 
             <div className={`${styles.burgerConstructorMain} ${commonStyles.scrolledArea} mt-4 mb-4`}>
-                {mainItems.map((i, ind)=>
-                {
+                {mainItems.map((i) => {
                     return (<ConstructorItem
-                        key={ind}
+                        key={i._id}
                         isLocked={false}
                         text={i.name}
                         price={i.price}
@@ -57,7 +54,7 @@ export function BurgerConstructor (props) {
                 })}
 
             </div>
-            {props.bun&&
+            {props.bun &&
                 <ConstructorItem
                     type="bottom"
                     isLocked={true}
@@ -65,14 +62,12 @@ export function BurgerConstructor (props) {
                     price={props.bun.price}
                     thumbnail={props.bun.image}
                 />}
-            <div  className='mt-10 mr-4'>
-            <OrderTotal total={total} showModal={showModal("test")}/>
+            <div className='mt-10 mr-4'>
+                <OrderTotal total={total} showModal={showModal("test")}/>
             </div>
-            {modalstate&&
+            {modalState &&
                 (<Modal hideFunction={hideModal}>
-                    <OrderDetails id={modalstate}>
-
-                    </OrderDetails>
+                    <OrderDetails id={modalState}/>
                 </Modal>)
             }
         </section>
@@ -80,19 +75,6 @@ export function BurgerConstructor (props) {
 }
 
 BurgerConstructor.propTypes = {
-bun: PropTypes.shape({
-    _id:PropTypes.string,
-    type:PropTypes.string,
-    proteins:PropTypes.number,
-    fat:PropTypes.number,
-    carbohydrates:PropTypes.number,
-    calories:PropTypes.number,
-    name:PropTypes.string,
-    price:PropTypes.number,
-    image:PropTypes.string,
-    image_mobile:PropTypes.string,
-    image_large:PropTypes.string,
-    __v:PropTypes.number
-}),
-    items:PropTypes.array
+    bun: PropTypes.shape(ingredientType),
+    items: PropTypes.arrayOf(PropTypes.shape(ingredientType))
 }

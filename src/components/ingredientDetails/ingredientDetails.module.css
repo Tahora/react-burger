@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.nutricionGrid{
+.nutricionGrid {
     display: grid;
     grid-template-columns: 120px 112px 112px 112px;
     column-gap: 20px;
