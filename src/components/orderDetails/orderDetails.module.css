@@ -1,0 +1,13 @@
+.orderDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.image {
+    width: 120px;
+    height: 120px;
+
+}
