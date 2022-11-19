@@ -1,0 +1,22 @@
+.burgerIngredients {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: calc(100vh - 168px);
+}
+
+
+.ingridientsTable {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 32px;
+}
+
+.tabArea {
+    display: flex;
+}
+
+.ingridientsHeader {
+
+}

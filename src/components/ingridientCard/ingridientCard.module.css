@@ -1,0 +1,26 @@
+.ingridientCard {
+    width: 272px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+}
+
+.priceArea {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+}
+
+.price {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.name {
+    margin: 0;
+    padding: 0;
+    min-height: 48px;
+    text-align: center;
+}
