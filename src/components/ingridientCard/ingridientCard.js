@@ -9,7 +9,7 @@ export function IngridientCard(props) {
 
     return (
         <div className={styles.ingridientCard} onClick={props.showModal}>
-            { props.count>0 &&
+            {props.count > 0 &&
                 (<Counter count={props.count} size="default" extraClass="m-1"/>)}
             <img src={`${props.image}`} alt={props.name}/>
             <div className={`${styles.priceArea} mt-2 mb-2`}>

@@ -3,11 +3,11 @@ import styles from './app.module.css';
 import {AppHeader} from "../appHeader/appHeader";
 import {BurgerIngredients} from "../burgerIngredients/burgerIngredients";
 import {BurgerConstructor} from "../burgerConstructor/burgerConstructor";
-import {getIngridients, getData} from  '../../utils/api';
-import {IngridientsContext}  from  '../../services/appContext';
+import {getIngridients, getData} from '../../utils/api';
+import {IngridientsContext} from '../../services/appContext';
 
 export function App() {
-    const ingridientsState=React.useState({
+    const ingridientsState = React.useState({
         isLoading: false,
         hasError: false,
         data: []
@@ -24,18 +24,18 @@ export function App() {
         <div className={styles.app}>
             <AppHeader/>
             <IngridientsContext.Provider value={ingridientsState}>
-            <main className={styles.content}>
-                {state.isLoading && 'Загрузка...'}
-                {state.hasError && 'Произошла ошибка'}
-                {!state.isLoading &&
-                    !state.hasError &&
-                    state.data?.data?.length &&
-                    (<>
-                        <BurgerIngredients/>
-                        <BurgerConstructor/>
-                    </>)}
+                <main className={styles.content}>
+                    {state.isLoading && 'Загрузка...'}
+                    {state.hasError && 'Произошла ошибка'}
+                    {!state.isLoading &&
+                        !state.hasError &&
+                        state.data?.data?.length &&
+                        (<>
+                            <BurgerIngredients/>
+                            <BurgerConstructor/>
+                        </>)}
 
-            </main>
+                </main>
             </IngridientsContext.Provider>
         </div>
     )

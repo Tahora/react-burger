@@ -5,11 +5,11 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import {IngridientCard} from '../ingridientCard/ingridientCard';
 import {Modal} from "../modal/modal";
 import {IngredientDetails} from "../ingredientDetails/ingredientDetails";
-import {IngridientsContext}  from  '../../services/appContext';
+import {IngridientsContext} from '../../services/appContext';
 
 
 export function BurgerIngredients() {
-    const burgerdata=React.useContext(IngridientsContext)[0].data.data;
+    const burgerdata = React.useContext(IngridientsContext)[0].data.data;
     const [current, setCurrent] = React.useState('1');
     const [modalState, setModalState] = React.useState();
 

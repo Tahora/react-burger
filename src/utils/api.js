@@ -1,6 +1,6 @@
-const urlApi ={
+const urlApi = {
     ingridients: "https://norma.nomoreparties.space/api/ingredients",
-    order:"https://norma.nomoreparties.space/api/orders"
+    order: "https://norma.nomoreparties.space/api/orders"
 };
 
 export const getData = async (callbackApi, paramsApi, callbackState) => {
@@ -21,18 +21,18 @@ export const getData = async (callbackApi, paramsApi, callbackState) => {
     }
 };
 
-export function getIngridients()
-{
+export function getIngridients() {
     return fetch(urlApi.ingridients);
 }
 
-export function getOrderId(ingridientsId)
-{
+export function getOrderId(ingridientsId) {
     return fetch(urlApi.order, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'},
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-            ingredients: ingridientsId})
+            ingredients: ingridientsId
+        })
     })
 }

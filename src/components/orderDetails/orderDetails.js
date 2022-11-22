@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from './orderDetails.module.css';
 import graphics from '../../images/graphics.svg';
-import { OrderContext} from '../../services/appContext';
+import {OrderContext} from '../../services/appContext';
 
 
 export function OrderDetails() {
-    const [state]=React.useContext(OrderContext);
+    const [state] = React.useContext(OrderContext);
 
 
     return (
         <div className={`${styles.orderDetails} mt-20 mb-20`}>
-            <p className={`text ${state.isLoading?'text_type_main-medium': ' text_type_digits-large'}`}>
+            <p className={`text ${state.isLoading ? 'text_type_main-medium' : ' text_type_digits-large'}`}>
                 {state.isLoading && 'Заказ формируется...'}
                 {(state.hasError || (state.data && !state.data.success)) && 'Произошла ошибка'}
                 {!state.isLoading &&
