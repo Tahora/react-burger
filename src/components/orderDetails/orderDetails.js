@@ -1,15 +1,24 @@
 import React from 'react';
 import styles from './orderDetails.module.css';
 import graphics from '../../images/graphics.svg';
-import PropTypes from "prop-types";
+import { OrderContext} from '../../services/appContext';
 
 
-export function OrderDetails(props) {
+export function OrderDetails() {
+    const [state]=React.useContext(OrderContext);
 
 
     return (
         <div className={`${styles.orderDetails} mt-20 mb-20`}>
-            <p className="text text_type_digits-large">{props.id}</p>
+            <p className={`text ${state.isLoading?'text_type_main-medium': ' text_type_digits-large'}`}>
+                {state.isLoading && 'Заказ формируется...'}
+                {(state.hasError || (state.data && !state.data.success)) && 'Произошла ошибка'}
+                {!state.isLoading &&
+                    !state.hasError &&
+                    state.data && state.data.success &&
+                    state.data.order?.number}
+
+            </p>
             <p className="text text_type_main-medium mt-8 mb-15">идентификатор заказа</p>
             <img className={styles.image} src={graphics} alt="ok"/>
             <p className="text text_type_main-default mt-15">Ваш заказ начали готовить</p>
@@ -19,6 +28,4 @@ export function OrderDetails(props) {
     )
 }
 
-OrderDetails.propTypes = {
-    id: PropTypes.string
-}
+

@@ -5,11 +5,11 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import {IngridientCard} from '../ingridientCard/ingridientCard';
 import {Modal} from "../modal/modal";
 import {IngredientDetails} from "../ingredientDetails/ingredientDetails";
-import {ingredientType} from '../../utils/types';
-import PropTypes from "prop-types";
+import {IngridientsContext}  from  '../../services/appContext';
 
 
-export function BurgerIngredients(props) {
+export function BurgerIngredients() {
+    const burgerdata=React.useContext(IngridientsContext)[0].data.data;
     const [current, setCurrent] = React.useState('1');
     const [modalState, setModalState] = React.useState();
 
@@ -40,7 +40,7 @@ export function BurgerIngredients(props) {
             <div className={`${commonStyles.scrolledArea}  mt-10`}>
                 <h2 className='text text_type_main-medium mb-6'>Булки</h2>
                 <div className={`${styles.ingridientsTable} pl-4 pr-4`}>
-                    {props.burgerdata.filter((i) => {
+                    {burgerdata.filter((i) => {
                         return i.type === "bun"
                     }).map((i) => {
                         const {name, price, image} = i;
@@ -52,7 +52,7 @@ export function BurgerIngredients(props) {
                 </div>
                 <h2 className='text text_type_main-medium mt-10 mb-6'>Соусы</h2>
                 <div className={`${styles.ingridientsTable} pl-4 pr-4`}>
-                    {props.burgerdata.filter((i) => {
+                    {burgerdata.filter((i) => {
                         return i.type === "sauce"
                     }).map((i) => {
                         const {name, price, image} = i;
@@ -64,7 +64,7 @@ export function BurgerIngredients(props) {
                 </div>
                 <h2 className='text text_type_main-medium mt-10 mb-6'>Начинки</h2>
                 <div className={`${styles.ingridientsTable} pl-4 pr-4`}>
-                    {props.burgerdata.filter((i) => {
+                    {burgerdata.filter((i) => {
                         return i.type === "main"
                     }).map((i) => {
                         const {name, price, image} = i;
@@ -87,7 +87,5 @@ export function BurgerIngredients(props) {
     )
 }
 
-BurgerIngredients.propTypes = {
-    burgerdata: PropTypes.arrayOf(PropTypes.shape(ingredientType))
-}
+
 

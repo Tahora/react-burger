@@ -5,25 +5,38 @@ import {ConstructorItem} from '../constructorItem/constructorItem';
 import {OrderTotal} from '../orderTotal/orderTotal';
 import {OrderDetails} from '../orderDetails/orderDetails';
 import {Modal} from '../modal/modal';
-import PropTypes from 'prop-types';
-import {ingredientType} from '../../utils/types';
+import {IngridientsContext, OrderContext}  from  '../../services/appContext';
+import {getData,  getOrderId} from '../../utils/api';
 
 
-export function BurgerConstructor(props) {
-    const mainItems = props.items;
-    const total = (props.bun ? props.bun.price * 2 : 0) +
-    props.items ? props.items.reduce((prevSum, i) => {
+export function BurgerConstructor() {
+
+    const [items] = React.useContext(IngridientsContext);
+    const orderState=React.useState({
+        isLoading: false,
+        hasError: false,
+        data: ''
+    });
+
+
+        const allbuns=items.data.data.filter((i) => {
+            return i.type == "bun"
+        });
+        const bun=allbuns[Math.floor(Math.random()*allbuns.length)];
+        const mainItems = items.data.data.filter((i)=>{return i.type!="bun"});
+
+
+
+    const total = (bun ? bun.price * 2 : 0) +
+        (mainItems ? mainItems.reduce((prevSum, i) => {
         return prevSum + i.price;
-    }, 0) : 0;
+    }, 0) : 0);
 
     const [modalState, setModalState] = React.useState();
 
-    function getOrderId(someParameter) {
-        return "034526";
-    }
-
-    const showModal = (someParameter) => (e) => {
-        setModalState(getOrderId(someParameter));
+    const showModal = (ingridientsId) => (e) => {
+        getData(getOrderId, ingridientsId, orderState);
+        setModalState(true);
     }
 
     const hideModal = (e) => {
@@ -33,13 +46,13 @@ export function BurgerConstructor(props) {
 
     return (
         <section className={`${styles.burgerConstructor} pt-25 pl-4`}>
-            {props.bun &&
+            {bun&&
                 <ConstructorItem
                     type="top"
                     isLocked={true}
-                    text={`${props.bun.name} (верх)`}
-                    price={props.bun.price}
-                    thumbnail={props.bun.image}
+                    text={`${bun.name} (верх)`}
+                    price={bun.price}
+                    thumbnail={bun.image}
                 />}
 
             <div className={`${styles.burgerConstructorMain} ${commonStyles.scrolledArea} mt-4 mb-4`}>
@@ -54,27 +67,25 @@ export function BurgerConstructor(props) {
                 })}
 
             </div>
-            {props.bun &&
+            {bun &&
                 <ConstructorItem
                     type="bottom"
                     isLocked={true}
-                    text={`${props.bun.name} (низ)`}
-                    price={props.bun.price}
-                    thumbnail={props.bun.image}
+                    text={`${bun.name} (низ)`}
+                    price={bun.price}
+                    thumbnail={bun.image}
                 />}
             <div className='mt-10 mr-4'>
-                <OrderTotal total={total} showModal={showModal("test")}/>
+                <OrderTotal total={total} showModal={showModal([...mainItems.map((i)=>{return i._id}),bun._id,bun._id])}/>
             </div>
             {modalState &&
-                (<Modal hideFunction={hideModal}>
-                    <OrderDetails id={modalState}/>
-                </Modal>)
+                (<OrderContext.Provider value={orderState}>
+                    <Modal hideFunction={hideModal}>
+                    <OrderDetails/>
+                </Modal>
+                </OrderContext.Provider>)
             }
         </section>
     )
 }
 
-BurgerConstructor.propTypes = {
-    bun: PropTypes.shape(ingredientType),
-    items: PropTypes.arrayOf(PropTypes.shape(ingredientType))
-}
