@@ -1,6 +1,8 @@
 .scrolledArea {
     overflow-y: scroll;
+    /*noinspection CssUnknownProperty*/
     scrollbar-width: 8px;
+    /*noinspection CssUnknownProperty*/
     scrollbar-color: #8585AD #2F2F37;
     scroll-behavior: smooth;
 }

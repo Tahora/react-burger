@@ -1,4 +1,4 @@
-.ingridientDetails {
+.ingredientDetails {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.nutricionGrid {
+.nutritionGrid {
     display: grid;
     grid-template-columns: 120px 112px 112px 112px;
     column-gap: 20px;

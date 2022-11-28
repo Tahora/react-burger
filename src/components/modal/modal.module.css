@@ -12,7 +12,7 @@
     box-sizing: border-box;
 }
 
-.closewrapper {
+.closeWrapper {
     position: absolute;
     top: 60px;
     right: 40px;

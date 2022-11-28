@@ -1,38 +1,42 @@
 const urlApi = {
-    ingridients: "https://norma.nomoreparties.space/api/ingredients",
+    ingredients: "https://norma.nomoreparties.space/api/ingredients",
     order: "https://norma.nomoreparties.space/api/orders"
 };
 
-export const getData = async (callbackApi, paramsApi, callbackState) => {
+export const loadDataToState = async (callbackApi, paramsApi, callbackState) => {
     callbackState[1]({...callbackState[0], hasError: false, isLoading: true});
     try {
-        const res = await callbackApi(paramsApi);
-        if (!res.ok) {
-            throw new Error('Сервер вернул ошибочный ответ')
-        }
-        const resData = await res.json();
-        resData.success ?
-            callbackState[1]({hasError: false, data: resData, isLoading: false}) :
-            (() => {
-                throw new Error('Ответ от сервера не `success`')
-            })();
+        const result = await getData(callbackApi, paramsApi);
+        callbackState[1]({hasError: false, data: result, isLoading: false});
     } catch (err) {
         callbackState[1]({...callbackState[0], hasError: true, isLoading: false});
     }
 };
 
-export function getIngridients() {
-    return fetch(urlApi.ingridients);
+async function getData(callbackApi, paramsApi) {
+    const res = await callbackApi(paramsApi);
+    if (!res.ok) {
+        throw new Error('Сервер вернул ошибочный ответ')
+    }
+    const data = await res.json();
+    if (!data.success) {
+        throw new Error('Ответ от сервера не `success`');
+    }
+    return data;
 }
 
-export function getOrderId(ingridientsId) {
+export function getIngredients() {
+    return fetch(urlApi.ingredients);
+}
+
+export function getOrderId(ingredientsId) {
     return fetch(urlApi.order, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            ingredients: ingridientsId
+            ingredients: ingredientsId
         })
     })
 }
