@@ -6,7 +6,7 @@
 }
 
 
-.ingridientsTable {
+.ingredientsTable {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 24px;
@@ -17,6 +17,3 @@
     display: flex;
 }
 
-.ingridientsHeader {
-
-}
