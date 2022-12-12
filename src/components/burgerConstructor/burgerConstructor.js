@@ -1,12 +1,13 @@
-import React, { useReducer, useEffect, useMemo } from "react";
+import React, { useReducer, useEffect} from "react";
 import styles from "./burgerConstructor.module.css";
 import commonStyles from "../common.module.css";
 import { ConstructorItem } from "../constructorItem/constructorItem";
 import { OrderTotal } from "../orderTotal/orderTotal";
 import { OrderDetails } from "../orderDetails/orderDetails";
 import { Modal } from "../modal/modal";
-import { IngredientsContext } from "../../services/appContext";
-import { loadDataToState, getOrderId } from "../../utils/api";
+import { useSelector, useDispatch } from 'react-redux';
+import {getOrder, addBun, addIngredient, deleteIngredient, increaseCounter, decreaseCounter} from "../../services/actions";
+import { useDrop} from "react-dnd";
 
 export function BurgerConstructor() {
   const total = (bun, items) => {
@@ -19,50 +20,40 @@ export function BurgerConstructor() {
     return bunsTotal + mainTotal;
   };
 
-  const [items] = React.useContext(IngredientsContext);
-  const orderState = React.useState({
-    isLoading: false,
-    hasError: false,
-    data: null,
+
+  const dispatch2 = useDispatch();
+
+  const mainItems =useSelector(store => store.constructor.ingredients);
+  const bun =useSelector(store => store.constructor.bun);
+
+  const [collected, dropRef] = useDrop({
+    accept: "ingredient" ,
+    drop(item) {
+        if( !bun || bun._id!==item._id) {
+            if (item.type === "bun" && bun) {
+                dispatch2(decreaseCounter(bun._id, 2));}
+            dispatch2(item.type === "bun" ? addBun(item) : addIngredient(item));
+            dispatch2(increaseCounter(item._id, item.type === "bun" ? 2 : 1));
+
+
+        }
+    },
   });
+
+
+
+
 
   function reducer(state, action) {
     return total(action.bun, action.items);
   }
 
-  const allBuns = useMemo(() => {
-    return items.data.data.filter((i) => {
-      return i.type === "bun";
-    });
-  }, []);
-
-  const allItems = useMemo(() => {
-    return items.data.data.filter((i) => {
-      return i.type !== "bun";
-    });
-  }, []);
-  const mainItems = useMemo(() => {
-    const itemsArray = [];
-    for (let i = 0; i <= Math.random() * allItems.length; i++) {
-      const filteredItems = allItems.filter((ai) => {
-        return !itemsArray.some((item) => {
-          return item._id === ai._id;
-        });
-      });
-      itemsArray.push(
-        filteredItems[Math.floor(Math.random() * filteredItems.length)]
-      );
-    }
-    return itemsArray;
-  }, []);
-  const bun = useMemo(() => {
-    return allBuns[Math.floor(Math.random() * allBuns.length)];
-  }, []);
-
   const [stateTotal, dispatch] = useReducer(reducer, 0);
+
   useEffect(() => {
     dispatch({ bun: bun, items: mainItems });
-  }, []);
+  }, [ bun, mainItems]);
+
   const [modalState, setModalState] = React.useState(false);
   const showModal = () => {
     setModalState(true);
@@ -79,13 +70,18 @@ export function BurgerConstructor() {
       }),
       bun._id,
     ];
-    // noinspection JSIgnoredPromiseFromCall
-    loadDataToState(getOrderId, ingredients, orderState);
-    showModal(ingredients);
+    dispatch2(getOrder(ingredients));
+    showModal();
   };
 
+function onDelete(ind, id) {
+ dispatch2(deleteIngredient(ind));
+ dispatch2(decreaseCounter(id));
+}
+
+
   return (
-    <section className={`${styles.burgerConstructor} pt-25 pl-4`}>
+    <section ref={dropRef} className={`${styles.burgerConstructor} pt-25 pl-4`}>
       {bun && (
         <ConstructorItem
           type="top"
@@ -93,13 +89,15 @@ export function BurgerConstructor() {
           text={`${bun.name} (верх)`}
           price={bun.price}
           thumbnail={bun.image}
+          dragType="bun"
+          index={0}
         />
       )}
 
       <div
         className={`${styles.burgerConstructorMain} ${commonStyles.scrolledArea} mt-4 mb-4`}
       >
-        {mainItems.map((i) => {
+        {mainItems?.map((i,ind) => {
           return (
             <ConstructorItem
               key={i._id}
@@ -107,6 +105,9 @@ export function BurgerConstructor() {
               text={i.name}
               price={i.price}
               thumbnail={i.image}
+              index={ind}
+              dragType='constructorItem'
+              handleClose={()=>onDelete(ind,  i._id)}
             />
           );
         })}
@@ -117,7 +118,9 @@ export function BurgerConstructor() {
           isLocked={true}
           text={`${bun.name} (низ)`}
           price={bun.price}
+          dragType="bun"
           thumbnail={bun.image}
+          index={0}
         />
       )}
       <div className="mt-10 mr-4">
@@ -125,7 +128,7 @@ export function BurgerConstructor() {
       </div>
       {modalState && (
         <Modal hideFunction={hideModal}>
-          <OrderDetails orderState={orderState[0]} />
+          <OrderDetails/>
         </Modal>
       )}
     </section>

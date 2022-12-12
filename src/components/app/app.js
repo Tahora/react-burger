@@ -1,39 +1,41 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./app.module.css";
 import { AppHeader } from "../appHeader/appHeader";
 import { BurgerIngredients } from "../burgerIngredients/burgerIngredients";
 import { BurgerConstructor } from "../burgerConstructor/burgerConstructor";
-import { getIngredients, loadDataToState } from "../../utils/api";
-import { IngredientsContext } from "../../services/appContext";
+import {getIngredients} from "../../services/actions";
+import {useDispatch, useSelector} from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export function App() {
-  const ingredientsState = React.useState({
-    isLoading: false,
-    hasError: false,
-    data: [],
-  });
-  const [state] = ingredientsState;
+  const { ingredients,isLoading, hasError } = useSelector(store => ({
+    ingredients: store.ingredients.ingredients,
+    isLoading: store.ingredients.ingredientsRequest,
+    hasError: store.ingredients.ingredientsFailed
+  }));
 
-  React.useEffect(() => {
-    // noinspection JSIgnoredPromiseFromCall
-    loadDataToState(getIngredients, null, ingredientsState);
-  }, []);
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+    dispatch(getIngredients());
+  }, [])
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <IngredientsContext.Provider value={ingredientsState}>
         <main className={styles.content}>
-          {state.isLoading && "Загрузка..."}
-          {state.hasError && "Произошла ошибка"}
-          {!state.isLoading && !state.hasError && state.data?.data?.length && (
+          {isLoading && "Загрузка..."}
+          {hasError && "Произошла ошибка"}
+          {!isLoading && !hasError && ingredients?.length && (
             <>
+            <DndProvider backend={HTML5Backend}>
               <BurgerIngredients />
               <BurgerConstructor />
+            </DndProvider>
             </>
           )}
         </main>
-      </IngredientsContext.Provider>
     </div>
   );
 }

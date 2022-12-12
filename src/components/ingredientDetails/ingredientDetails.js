@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./ingredientDetails.module.css";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import {useSelector} from "react-redux";
 
-export function IngredientDetails(props) {
+export function IngredientDetails() {
+    const modalDetail = useSelector(store => store.ingredientDetail.ingredientDetail);
   const { name, proteins, fat, carbohydrates, calories, image_large } =
-    props.data;
+      modalDetail ;
 
   return (
     <div className={styles.ingredientDetails}>
@@ -28,6 +28,4 @@ export function IngredientDetails(props) {
   );
 }
 
-IngredientDetails.propTypes = {
-  data: PropTypes.shape(ingredientType).isRequired,
-};
+
