@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.indented {
+    padding-top: 15px;
+}
+
 .invisible {
     visibility: hidden;
 }

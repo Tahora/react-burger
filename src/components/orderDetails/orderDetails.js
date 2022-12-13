@@ -1,27 +1,25 @@
 import React from "react";
 import styles from "./orderDetails.module.css";
 import graphics from "../../images/graphics.svg";
-import PropTypes from "prop-types";
-import { orderStateType } from "../../utils/types";
+import { useSelector } from "react-redux";
 
-export function OrderDetails(props) {
-  const state = props.orderState;
+export function OrderDetails() {
+  const { order, isLoading, hasError } = useSelector((store) => ({
+    order: store.order.orderInfo?.order?.number,
+    isLoading: store.order.orderRequest,
+    hasError: store.order.orderFailed,
+  }));
 
   return (
     <div className={`${styles.orderDetails} mt-20 mb-20`}>
       <p
         className={`text ${
-          state.isLoading ? "text_type_main-medium" : " text_type_digits-large"
+          isLoading ? "text_type_main-medium" : " text_type_digits-large"
         }`}
       >
-        {state.isLoading && "Заказ формируется..."}
-        {(state.hasError || (state.data && !state.data.success)) &&
-          "Произошла ошибка"}
-        {!state.isLoading &&
-          !state.hasError &&
-          state.data &&
-          state.data.success &&
-          state.data.order?.number}
+        {isLoading && "Заказ формируется..."}
+        {hasError && "Произошла ошибка"}
+        {!isLoading && !hasError && order && order}
       </p>
       <p className="text text_type_main-medium mt-8 mb-15">
         идентификатор заказа
@@ -37,6 +35,4 @@ export function OrderDetails(props) {
   );
 }
 
-OrderDetails.propTypes = {
-  orderState: PropTypes.shape(orderStateType).isRequired,
-};
+
