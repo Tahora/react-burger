@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./ingredientDetails.module.css";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 export function IngredientDetails() {
-    const modalDetail = useSelector(store => store.ingredientDetail.ingredientDetail);
+  const modalDetail = useSelector(
+    (store) => store.ingredientDetail.ingredientDetail
+  );
   const { name, proteins, fat, carbohydrates, calories, image_large } =
-      modalDetail ;
+    modalDetail;
 
   return (
     <div className={styles.ingredientDetails}>

@@ -1,16 +1,14 @@
 import React from "react";
 import styles from "./orderDetails.module.css";
 import graphics from "../../images/graphics.svg";
-import { useSelector} from "react-redux";
-
+import { useSelector } from "react-redux";
 
 export function OrderDetails() {
-    const { order,isLoading, hasError } = useSelector(store => ({
-        order: store.order.orderInfo?.order?.number,
-        isLoading: store.order.orderRequest,
-        hasError: store.order.orderFailed
-    }));
-
+  const { order, isLoading, hasError } = useSelector((store) => ({
+    order: store.order.orderInfo?.order?.number,
+    isLoading: store.order.orderRequest,
+    hasError: store.order.orderFailed,
+  }));
 
   return (
     <div className={`${styles.orderDetails} mt-20 mb-20`}>
@@ -20,10 +18,8 @@ export function OrderDetails() {
         }`}
       >
         {isLoading && "Заказ формируется..."}
-        {hasError  && "Произошла ошибка"}
-        {!isLoading &&
-          !hasError &&
-          order && order}
+        {hasError && "Произошла ошибка"}
+        {!isLoading && !hasError && order && order}
       </p>
       <p className="text text_type_main-medium mt-8 mb-15">
         идентификатор заказа
