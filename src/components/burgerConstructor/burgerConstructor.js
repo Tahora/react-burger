@@ -6,14 +6,9 @@ import { OrderTotal } from "../orderTotal/orderTotal";
 import { OrderDetails } from "../orderDetails/orderDetails";
 import { Modal } from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getOrder,
-  addBun,
-  addIngredient,
-  deleteIngredient,
-  increaseCounter,
-  decreaseCounter,
-} from "../../services/actions";
+import { increaseCounter,  decreaseCounter} from "../../services/actions/ingredients";
+import { getOrder} from "../../services/actions/order";
+import { addBun,  addIngredient,  deleteIngredient,} from "../../services/actions/constructor";
 import { useDrop } from "react-dnd";
 import { dragTypesConstructor, strBun } from "../../utils/constants";
 

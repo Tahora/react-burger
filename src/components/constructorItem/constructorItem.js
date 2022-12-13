@@ -5,7 +5,7 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { replaceConstructorItem } from "../../services/actions";
+import { replaceConstructorItem } from "../../services/actions/constructor";
 import { dragTypesConstructor } from "../../utils/constants";
 
 export function ConstructorItem(props) {

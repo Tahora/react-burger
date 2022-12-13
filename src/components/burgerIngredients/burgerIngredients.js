@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   showIngredientDetail,
   hideIngredientDetail,
-} from "../../services/actions";
+} from "../../services/actions/ingredientDetail";
 import {
   tabItemBun,
   tabItemSauce,

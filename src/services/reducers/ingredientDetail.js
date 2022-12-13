@@ -1,4 +1,4 @@
-import { HIDE_INGREDIENT_DETAIL, SHOW_INGREDIENT_DETAIL } from "../actions";
+import { HIDE_INGREDIENT_DETAIL, SHOW_INGREDIENT_DETAIL } from "../actions/ingredientDetail";
 
 export const initStateIngredientDetail = {
   ingredientDetail: null,

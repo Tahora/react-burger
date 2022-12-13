@@ -4,7 +4,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   INCREASE_COUNTER,
-} from "../actions";
+} from "../actions/ingredients";
 
 export const initStateIngredients = {
   ingredients: [],

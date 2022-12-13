@@ -3,7 +3,8 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   REPLACE_CONSTRUCTOR_ITEM,
-} from "../actions";
+} from "../actions/constructor";
+
 import { replaceItem } from "../../utils/common";
 
 export const initStateConstructor = {
