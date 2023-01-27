@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from "./common.module.css";
 import {
-    Input,
     EmailInput,
     PasswordInput,
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from 'react-router-dom';
 
 
 export function LoginPage() {
@@ -40,11 +40,11 @@ export function LoginPage() {
             <div>
             <div className={`${styles.linkContainer} mt-10`}>
                 <p className="text text_type_main-default text_color_inactive">Вы - новый пользователь?</p>
-                <a  href="#" className={`${styles.link} text text_type_main-default`}>Зарегистрироваться</a>
+                <Link to="../register"   className={`${styles.link} text text_type_main-default`}>Зарегистрироваться</Link>
             </div>
             <div className={`${styles.linkContainer} mt-4`}>
                 <p className="text text_type_main-default text_color_inactive">Забыли пароль?</p>
-                <a  href="#" className={`${styles.link} text text_type_main-default`}>Восстановить пароль</a>
+                <Link to="../forgot-password"  className={`${styles.link} text text_type_main-default`}>Восстановить пароль</Link>
             </div>
             </div>
         </div>

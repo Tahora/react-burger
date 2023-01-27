@@ -6,7 +6,7 @@ import {
     PasswordInput,
     Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function RegistrationPage() {
         return (
@@ -52,7 +52,7 @@ export function RegistrationPage() {
                 </Button>
                 <div className={`${styles.linkContainer} mt-10`}>
                     <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?</p>
-                    <a  href="#" className={`${styles.link} text text_type_main-default`}>Войти</a>
+                    <Link  to="../login" className={`${styles.link} text text_type_main-default`}>Войти</Link>
                 </div>
             </div>
         );

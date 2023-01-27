@@ -10,6 +10,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { RegistrationPage} from "../../pages/registration";
 import { LoginPage} from "../../pages/login";
+import {ForgotPasswordPage} from "../../pages/forgotPassword";
 
 export function App() {
   const { ingredients, isLoading, hasError } = useSelector((store) => ({
@@ -32,6 +33,7 @@ export function App() {
               <Routes>
                   <Route  path="/register" element={<RegistrationPage/>}/>
                   <Route  path="/login" element={<LoginPage/>}/>
+                  <Route  path="/forgot-password" element={<ForgotPasswordPage/>}/>
                   <Route  path="/" element={
                       <>
                           {isLoading && "Загрузка..."}
