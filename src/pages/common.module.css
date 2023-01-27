@@ -5,6 +5,8 @@
     flex-direction: column;
     row-gap: 24px;
     align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .link{

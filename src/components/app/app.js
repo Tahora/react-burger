@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { RegistrationPage} from "../../pages/registration";
+import { LoginPage} from "../../pages/login";
 
 export function App() {
   const { ingredients, isLoading, hasError } = useSelector((store) => ({
@@ -30,6 +31,7 @@ export function App() {
           <BrowserRouter>
               <Routes>
                   <Route  path="/register" element={<RegistrationPage/>}/>
+                  <Route  path="/login" element={<LoginPage/>}/>
                   <Route  path="/" element={
                       <>
                           {isLoading && "Загрузка..."}
