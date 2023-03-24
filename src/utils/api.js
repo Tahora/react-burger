@@ -1,15 +1,17 @@
 import { getCookie } from "./cookie";
 import { tokens } from "./constants";
 
+const BASE_URL = "https://norma.nomoreparties.space/api";
+
 const urlApi = {
-  ingredients: "https://norma.nomoreparties.space/api/ingredients",
-  order: "https://norma.nomoreparties.space/api/orders",
-  resetPassword: "https://norma.nomoreparties.space/api/password-reset",
-  register: "https://norma.nomoreparties.space/api/auth/register",
-  login: "https://norma.nomoreparties.space/api/auth/login",
-  logout: "https://norma.nomoreparties.space/api/auth/logout",
-  token: "https://norma.nomoreparties.space/api/auth/token",
-  user: "https://norma.nomoreparties.space/api/auth/user",
+  ingredients: `${BASE_URL}/ingredients`,
+  order: `${BASE_URL}/orders`,
+  resetPassword: `${BASE_URL}/password-reset`,
+  register: `${BASE_URL}/auth/register`,
+  login: `${BASE_URL}/auth/login`,
+  logout: `${BASE_URL}/auth/logout`,
+  token: `${BASE_URL}/auth/token`,
+  user: `${BASE_URL}/auth/user`,
 };
 
 export async function getData(callbackApi, paramsApi) {
@@ -135,15 +137,20 @@ export function getUserDataRequest() {
   });
 }
 
-export function setUserDataRequest() {
+export function setUserDataRequest(fields) {
   const token = getCookie(tokens.accessToken);
   if (!token) throw new Error("Empty accessToken");
+  const {email, name, password}={...fields};
   return fetch(urlApi.user, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
+    body: JSON.stringify({
+      email: email,
+      name: name,
+      password: password,
+    }),
   });
 }
-

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./orderTotal.module.css";
+import styles from "./order-total.module.css";
 import {
   CurrencyIcon,
   Button,

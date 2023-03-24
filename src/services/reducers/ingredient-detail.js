@@ -1,7 +1,7 @@
 import {
   HIDE_INGREDIENT_DETAIL,
   SHOW_INGREDIENT_DETAIL,
-} from "../actions/ingredientDetail";
+} from "../actions/ingredient-detail";
 
 export const initStateIngredientDetail = {
   ingredientDetail: null,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./common.module.css";
 import {
   Input,
@@ -6,35 +6,21 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../services/actions/authorization";
-import { setFormValue, resetForm } from "../services/actions/forms";
+import { useForm } from "../hooks/use-form";
 
 export function RegistrationPage() {
   const dispatch = useDispatch();
-
-  const { name, email, password } = useSelector((state) => state.forms);
-  const { registerRequest, user } = useSelector((state) => state.register);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetForm());
-    };
-  }, []);
-
-  const onFormChange = (e) => {
-    dispatch(setFormValue(e.target.name, e.target.value));
-  };
+  const { form, onFormChange } = useForm(dispatch);
+  const { name, email, password } = form;
+  const { registerRequest } = useSelector((state) => state.register);
 
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(email, password, name));
   };
-
-  if (user?.email && user?.name) {
-    return <Navigate to={"/"} />;
-  }
 
   return (
     <form className={`${styles.container}`} onSubmit={onFormSubmit}>
@@ -83,4 +69,3 @@ export function RegistrationPage() {
     </form>
   );
 }
-

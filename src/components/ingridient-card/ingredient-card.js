@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ingridientCard.module.css";
+import styles from "./ingridient-card.module.css";
 import {
   CurrencyIcon,
   Counter,

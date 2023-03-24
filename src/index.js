@@ -6,7 +6,7 @@ import { rootReducer, initState } from "./services/reducers";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import retry from "./middleware/retryMiddleware";
+import retry from "./middleware/retry-middleware";
 import { BrowserRouter } from "react-router-dom";
 
 const composeEnhancers = composeWithDevTools({
@@ -29,4 +29,3 @@ root.render(
     </Provider>
   </BrowserRouter>
 );
-

@@ -8,7 +8,7 @@ export const strMain = "sauce";
 
 export const dragTypesConstructor = {
   bun: "bun",
-  other: "constructorItem",
+  other: "constructor-item",
 };
 
 export const tokens = {

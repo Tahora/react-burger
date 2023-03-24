@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Link} from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import styles from "./profile.module.css";
 import { logoutUser } from "../services/actions/authorization";
 import { useDispatch } from "react-redux";
@@ -34,6 +34,7 @@ export function ProfilePage(props) {
           История заказов
         </Link>
         <NavLink
+            to="/"
           className={`${styles.menuitem} text text_type_main-medium`}
           onClick={(e) => logout(e)}
         >
@@ -45,9 +46,7 @@ export function ProfilePage(props) {
           В этом разделе вы можете изменить&nbsp;свои персональные данные
         </p>
       </div>
-      <div className={styles.content}>
-        {props.children}
-      </div>
+      <div className={styles.content}>{props.children}</div>
     </div>
   );
 }

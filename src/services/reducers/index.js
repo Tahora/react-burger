@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import {
   initStateIngredientDetail,
   ingredientDetailReducer,
-} from "./ingredientDetail";
+} from "./ingredient-detail";
 import { initStateConstructor, constructorReducer } from "./constructor";
 import { initStateIngredients, ingredientsReducer } from "./ingredients";
 import { initStateOrder, orderReducer } from "./order";

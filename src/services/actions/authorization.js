@@ -13,6 +13,7 @@ import {
 export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_REQUEST_SUCCESS = "RESET_PASSWORD_REQUEST_SUCCESS";
 export const RESET_PASSWORD_REQUEST_FAILED = "RESET_PASSWORD_REQUEST_FAILED";
+export const CLEAN_RESET_PASSWORD_RESULT = "RESET_PASSWORD_RESULT";
 
 export const SET_PASSWORD_REQUEST = "SET_PASSWORD_REQUEST";
 export const SET_PASSWORD_REQUEST_SUCCESS = "SET_PASSWORD_REQUEST_SUCCESS";
@@ -49,7 +50,7 @@ export function resetPassword(email) {
       type: RESET_PASSWORD_REQUEST,
     });
     // Запрашиваем данные у сервера
-    return getData(resetPasswordRequest, { email })
+    getData(resetPasswordRequest, { email })
       .then((res) => {
         dispatch({ type: RESET_PASSWORD_REQUEST_SUCCESS, data: res });
       })
@@ -59,6 +60,12 @@ export function resetPassword(email) {
   };
 }
 
+export const clearResetPasswordResult = () => {
+  return {
+    type: CLEAN_RESET_PASSWORD_RESULT,
+  };
+};
+
 export function setPassword({ password, token }) {
   return function (dispatch) {
     // начали выполнять запрос
@@ -66,7 +73,7 @@ export function setPassword({ password, token }) {
       type: SET_PASSWORD_REQUEST,
     });
     // Запрашиваем данные у сервера
-    return getData(setPasswordRequest, { password, token })
+    getData(setPasswordRequest, { password, token })
       .then((res) => {
         dispatch({ type: SET_PASSWORD_REQUEST_SUCCESS, data: res });
       })
@@ -168,13 +175,13 @@ export function getUserData(isContinueExeption = false) {
   };
 }
 
-export function setUserData(isContinueExeption = false) {
+export function setUserData(fields, isContinueExeption = false) {
   return async function (dispatch) {
     // начали выполнять запрос
     dispatch({
       type: SET_USER_DATA_REQUEST,
     });
-    const r = getData(setUserDataRequest).then(
+    const r = getData(setUserDataRequest, fields).then(
       (res) => {
         dispatch({ type: SET_USER_DATA_REQUEST_SUCCESS, data: res });
       },
@@ -196,8 +203,8 @@ export const tryGetUserData = ({ errName = "none" }) => {
   };
 };
 
-export const trySetUserData = ({ errName = "none" }) => {
+export const trySetUserData = ({fields, errName = "none" }) => {
   return function (dispatch) {
-    dispatch([setUserData(true), refreshToken(true)]);
+    dispatch([setUserData(fields,true), refreshToken(true)]);
   };
 };

@@ -1,9 +1,9 @@
 import React, { useMemo, useRef } from "react";
-import styles from "./burgerIngredients.module.css";
+import styles from "./burger-ingredients.module.css";
 import commonStyles from "../common.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientCard } from "../ingridientCard/ingredientCard";
-import { useSelector} from "react-redux";
+import { IngredientCard } from "../ingridient-card/ingredient-card";
+import { useSelector } from "react-redux";
 import {
   tabItemBun,
   tabItemSauce,

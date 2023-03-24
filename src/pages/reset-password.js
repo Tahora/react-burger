@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import styles from "./common.module.css";
 import {
   Input,
@@ -7,44 +7,39 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetForm, setFormValue } from "../services/actions/forms";
-import { setPassword } from "../services/actions/authorization";
+import {
+  clearResetPasswordResult,
+  setPassword,
+} from "../services/actions/authorization";
+import { useForm } from "../hooks/use-form";
 
 export function ResetPasswordPage() {
   const dispatch = useDispatch();
   const { state } = useLocation();
-  let navigate = useNavigate();
-  const { password, token } = useSelector((state) => state.forms);
-  const { setPasswordFailed, setPasswordRequest, user } = useSelector(
+  const navigate = useNavigate();
+  const { form, onFormChange } = useForm(dispatch);
+  const { password, token } = form;
+  const { setPasswordRequest, setPasswordResult } = useSelector(
     (state) => state.register
   );
-  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     return () => {
-      dispatch(resetForm());
+      dispatch(clearResetPasswordResult());
     };
   }, []);
 
-  if (state?.from !== "forgot-page") {
+  if (state?.from?.pathname !== "/forgot-password") {
     return navigate("/");
   }
 
-  if (redirect || (user?.email && user?.name)) {
+  if (setPasswordResult) {
     return navigate("/");
   }
-
-  const onFormChange = (e) => {
-    dispatch(setFormValue(e.target.name, e.target.value));
-  };
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(setPassword({ password, token })).then((res) => {
-      if (!(setPasswordFailed || setPasswordRequest)) {
-        setRedirect(true);
-      }
-    });
+    dispatch(setPassword({ password, token }));
   };
 
   return (

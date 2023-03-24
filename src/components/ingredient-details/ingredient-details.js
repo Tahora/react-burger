@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ingredientDetails.module.css";
+import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -35,5 +35,3 @@ export function IngredientDetails() {
     </div>
   );
 }
-
-

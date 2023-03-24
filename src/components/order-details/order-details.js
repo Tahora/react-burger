@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./orderDetails.module.css";
+import styles from "./order-details.module.css";
 import graphics from "../../images/graphics.svg";
 import { useSelector } from "react-redux";
 
@@ -34,5 +34,3 @@ export function OrderDetails() {
     </div>
   );
 }
-
-

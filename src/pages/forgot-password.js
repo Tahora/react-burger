@@ -1,48 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./common.module.css";
 import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
-import { resetForm, setFormValue } from "../services/actions/forms";
-import { resetPassword } from "../services/actions/authorization";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import {
+  resetPassword,
+  clearResetPasswordResult,
+} from "../services/actions/authorization";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "../hooks/use-form";
 
+// не могу понять почему компонент генерирует в консоли
+//react-dom.development.js:86 Warning: Cannot update a component (`BrowserRouter`) while rendering a different component (`ForgotPasswordPage`). To locate the bad setState() call inside
+// ведь setState() в нём не используется
 export function ForgotPasswordPage() {
   const dispatch = useDispatch();
-  let navigate = useNavigate();
-  const { email } = useSelector((state) => state.forms);
-  const { resetPasswordFailed, resetPasswordRequest, user } = useSelector(
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { form, onFormChange } = useForm(dispatch);
+  const { email } = form;
+
+  const { resetPasswordRequest, resetPasswordResult } = useSelector(
     (state) => state.register
   );
-  const [redirect, setRedirect] = useState(false);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetForm());
-    };
-  }, []);
-
-  const onFormChange = (e) => {
-    dispatch(setFormValue(e.target.name, e.target.value));
-  };
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(resetPassword(email)).then((res) => {
-      if (!(resetPasswordFailed || resetPasswordRequest)) {
-        setRedirect(true);
-      }
-    });
+    dispatch(resetPassword(email));
   };
 
-  if (redirect) {
-    return navigate("/reset-password", { state: { from: "forgot-page" } });
-  }
+  useEffect(() => {
+    return () => {
+      dispatch(clearResetPasswordResult());
+    };
+  }, []);
 
-  if (user?.email && user?.name) {
-    return navigate("/");
+  if (resetPasswordResult) {
+    navigate("/reset-password", { state: { from: location } });
   }
 
   return (

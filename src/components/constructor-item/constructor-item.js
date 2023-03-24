@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import styles from "./constructorItem.module.css";
+import styles from "./constructor-item.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
@@ -23,7 +23,7 @@ export function ConstructorItem(props) {
     }),
     drop(item) {
       const dragIndex = item.index;
-      if (dragIndex != index) {
+      if (dragIndex !== index) {
         dispatch(replaceConstructorItem(dragIndex, index));
       }
     },

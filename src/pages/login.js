@@ -1,36 +1,24 @@
-import React, { useEffect } from "react";
+import Reactfrom "react";
 import styles from "./common.module.css";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
-import { resetForm, setFormValue } from "../services/actions/forms";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../services/actions/authorization";
+import { useForm } from "../hooks/use-form";
 
 export function LoginPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { email, password } = useSelector((state) => state.forms);
-  const { registerRequest, user, registerFailed } = useSelector(
+  const { form, onFormChange } = useForm(dispatch);
+  const { email, password } = form;
+
+
+  const { registerRequest } = useSelector(
     (state) => state.register
   );
-  useEffect(() => {
-    return () => {
-      dispatch(resetForm());
-    };
-  }, []);
-
-  const onFormChange = (e) => {
-    dispatch(setFormValue(e.target.name, e.target.value));
-  };
-
-  const isLogged = !registerFailed && user?.email && user?.name;
-  if (isLogged) {
-    return navigate("/");
-  }
 
   const onFormSubmit = (e) => {
     e.preventDefault();

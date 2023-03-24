@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./appHeader.module.css";
-import { HeaderItem } from "../headerItem/headerItem";
+import styles from "./app-header.module.css";
+import { HeaderItem } from "../header-item/header-item";
 import {
   BurgerIcon,
   ListIcon,

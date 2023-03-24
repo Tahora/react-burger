@@ -1,12 +1,12 @@
 import { getData, getOrderIdRequest } from "../../utils/api";
-import {refreshToken} from "./authorization";
+import { refreshToken } from "./authorization";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
 
 export function getOrder(ingredientsId, isContinueExeption) {
-  let continueExeption=isContinueExeption;
+  let continueExeption = isContinueExeption;
   return function (dispatch) {
     // начали выполнять запрос
     dispatch({
@@ -19,7 +19,7 @@ export function getOrder(ingredientsId, isContinueExeption) {
       })
       .catch((err) => {
         if (continueExeption) {
-          continueExeption=false;
+          continueExeption = false;
           throw err;
         }
         dispatch({ type: GET_ORDER_FAILED });
@@ -27,8 +27,8 @@ export function getOrder(ingredientsId, isContinueExeption) {
   };
 }
 
-export const tryGetOrder = ({ ingredientsId,errName = "none" }) => {
+export const tryGetOrder = ({ ingredientsId, errName = "none" }) => {
   return function (dispatch) {
-    dispatch([getOrder(ingredientsId,true), refreshToken(true)]);
+    dispatch([getOrder(ingredientsId, true), refreshToken(true)]);
   };
 };

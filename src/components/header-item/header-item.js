@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import styles from "./headerItem.module.css";
+import styles from "./header-item.module.css";
 import PropTypes from "prop-types";
 
 export function HeaderItem(props) {
@@ -14,7 +14,7 @@ export function HeaderItem(props) {
         isActive ? styles.active : ""
       }`}
     >
-      <IconName type={true ? "primary" : "secondary"} />
+      <IconName type={"primary"} />
       <span className={`${styles.headerItemCaption}`}> {props.caption} </span>
     </NavLink>
   );

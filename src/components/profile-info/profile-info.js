@@ -1,35 +1,35 @@
 import React, { useEffect } from "react";
-import styles from "./profileInfo.module.css";
+import styles from "./profile-info.module.css";
 import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { resetForm, setFormValue } from "../../services/actions/forms";
+import {  setFormValue } from "../../services/actions/forms";
 import { trySetUserData } from "../../services/actions/authorization";
+import { useForm } from "../../hooks/use-form";
 
 export function ProfileInfo() {
   const dispatch = useDispatch();
+
   const { name: userName = "", email: userEmail = "" } = {
     ...useSelector((state) => state.register.user),
   };
-  const { password, name, email } = { ...useSelector((state) => state.forms) };
+  const { form, onFormChange } = useForm(dispatch);
+  const { password, name, email } = form;
 
   useEffect(() => {
     dispatch(setFormValue("name", userName));
     dispatch(setFormValue("email", userEmail));
-    return () => {
-      dispatch(resetForm());
-    };
   }, [userName, userEmail]);
-
-  const onFormChange = (e) => {
-    dispatch(setFormValue(e.target.name, e.target.value));
-  };
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(trySetUserData({ errName: "" }));
+    const fields={};
+    if(userName!==name) fields.name=name;
+    if(userEmail!==email) fields.email=email;
+    fields.password=password;
+    dispatch(trySetUserData({fields, errName: "" }));
   };
 
   const onCancel = () => {
@@ -38,7 +38,7 @@ export function ProfileInfo() {
     dispatch(setFormValue("password", ""));
   };
 
-  const buttons = userName !== name || userEmail !== email;
+  const buttons = userName !== name || userEmail !== email ;
 
   return (
     <form className={`${styles.container}`} onSubmit={onFormSubmit}>

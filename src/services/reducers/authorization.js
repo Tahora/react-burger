@@ -2,6 +2,7 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_REQUEST_SUCCESS,
   RESET_PASSWORD_REQUEST_FAILED,
+  CLEAN_RESET_PASSWORD_RESULT,
   SET_PASSWORD_REQUEST,
   SET_PASSWORD_REQUEST_SUCCESS,
   SET_PASSWORD_REQUEST_FAILED,
@@ -44,8 +45,10 @@ export const initStateRegister = {
   logoutFailed: false,
   resetPasswordRequest: false,
   resetPasswordFailed: false,
+  resetPasswordResult: false,
   setPasswordRequest: false,
   setPasswordFailed: false,
+  setPasswordResult: false,
   user: {},
 };
 
@@ -80,6 +83,7 @@ export const registerReducer = (state = initStateRegister, action) => {
         ...state,
         resetPasswordFailed: false,
         resetPasswordRequest: false,
+        resetPasswordResult: true,
       };
     }
     case RESET_PASSWORD_REQUEST_FAILED: {
@@ -87,6 +91,14 @@ export const registerReducer = (state = initStateRegister, action) => {
         ...state,
         resetPasswordFailed: true,
         resetPasswordRequest: false,
+        resetPasswordResult: false,
+      };
+    }
+    case CLEAN_RESET_PASSWORD_RESULT: {
+      return {
+        ...state,
+        resetPasswordResult: false,
+        setPasswordResult: false,
       };
     }
     case SET_PASSWORD_REQUEST: {
@@ -97,6 +109,7 @@ export const registerReducer = (state = initStateRegister, action) => {
         ...state,
         setPasswordFailed: false,
         setPasswordRequest: false,
+        setPasswordResult: true,
       };
     }
     case SET_PASSWORD_REQUEST_FAILED: {

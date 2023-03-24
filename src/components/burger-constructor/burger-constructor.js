@@ -1,9 +1,9 @@
 import React, { useReducer, useEffect } from "react";
-import styles from "./burgerConstructor.module.css";
+import styles from "./burger-constructor.module.css";
 import commonStyles from "../common.module.css";
-import { ConstructorItem } from "../constructorItem/constructorItem";
-import { OrderTotal } from "../orderTotal/orderTotal";
-import { OrderDetails } from "../orderDetails/orderDetails";
+import { ConstructorItem } from "../constructor-item/constructor-item";
+import { OrderTotal } from "../order-total/order-total";
+import { OrderDetails } from "../order-details/order-details";
 import { Modal } from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,6 +19,7 @@ import {
 import { useDrop } from "react-dnd";
 import { dragTypesConstructor, strBun } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 
 export function BurgerConstructor() {
   const total = (bun, items) => {
@@ -45,6 +46,7 @@ export function BurgerConstructor() {
         if (item.type === strBun && bun) {
           dispatch2(decreaseCounter(bun._id, 2));
         }
+        item.uuid = v4();
         dispatch2(item.type === strBun ? addBun(item) : addIngredient(item));
         dispatch2(increaseCounter(item._id, item.type === strBun ? 2 : 1));
       }
@@ -80,7 +82,7 @@ export function BurgerConstructor() {
       }),
       bun._id,
     ];
-    dispatch2(tryGetOrder({ingredientsId: ingredients}));
+    dispatch2(tryGetOrder({ ingredientsId: ingredients }));
     showModal();
   };
 
@@ -109,7 +111,7 @@ export function BurgerConstructor() {
         {mainItems?.map((i, ind) => {
           return (
             <ConstructorItem
-              key={i._id}
+              key={i.uuid}
               isLocked={false}
               text={i.name}
               price={i.price}
@@ -136,7 +138,7 @@ export function BurgerConstructor() {
         <OrderTotal total={stateTotal} onClick={handleClick} />
       </div>
       {modalState && (
-        <Modal hideFunction={hideModal}>
+        <Modal hideFunction={hideModal} isOver={true}>
           <OrderDetails />
         </Modal>
       )}
