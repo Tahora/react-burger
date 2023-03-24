@@ -10,3 +10,8 @@ export const dragTypesConstructor = {
   bun: "bun",
   other: "constructorItem",
 };
+
+export const tokens = {
+  refreshToken: "refreshToken",
+  accessToken: "accessToken",
+};

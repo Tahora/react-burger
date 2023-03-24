@@ -1,13 +1,13 @@
 .headerItem {
     text-decoration: none;
-    color: #F2F2F3;
     display: flex;
     align-items: center;
     width: fit-content;
+    color: #8585AD;
 }
 
-.inactive {
-    color: #8585AD;
+.active {
+    color: #F2F2F3;
 }
 
 .headerItemCaption {

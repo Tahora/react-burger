@@ -3,13 +3,7 @@ import styles from "./burgerIngredients.module.css";
 import commonStyles from "../common.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientCard } from "../ingridientCard/ingredientCard";
-import { Modal } from "../modal/modal";
-import { IngredientDetails } from "../ingredientDetails/ingredientDetails";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  showIngredientDetail,
-  hideIngredientDetail,
-} from "../../services/actions/ingredientDetail";
+import { useSelector} from "react-redux";
 import {
   tabItemBun,
   tabItemSauce,
@@ -18,25 +12,14 @@ import {
   strSauce,
   strMain,
 } from "../../utils/constants";
+import { Link, useLocation } from "react-router-dom";
 
 export function BurgerIngredients() {
-  const dispatch = useDispatch();
-
-  const modalDetail = useSelector(
-    (store) => store.ingredientDetail.ingredientDetail
-  );
+  const location = useLocation();
 
   const burgerData = useSelector((store) => store.ingredients.ingredients);
 
   const [current, setCurrent] = React.useState(tabItemBun);
-
-  function showModal(ingredient) {
-    dispatch(showIngredientDetail(ingredient));
-  }
-
-  function hideModal() {
-    dispatch(hideIngredientDetail());
-  }
 
   const buns = useMemo(
     () => burgerData.filter((item) => item.type === strBun),
@@ -103,11 +86,14 @@ export function BurgerIngredients() {
         <div className={`${styles.ingredientsTable} pl-4 pr-4`}>
           {buns.map((i) => {
             return (
-              <IngredientCard
+              <Link
                 key={i._id}
-                ingredientId={i._id}
-                showModal={() => showModal(i)}
-              />
+                to={`/ingredients/${i._id}`}
+                style={{ textDecoration: "none", color: "#F2F2F3" }}
+                state={{ backgroundLocation: location }}
+              >
+                <IngredientCard ingredientId={i._id} />
+              </Link>
             );
           })}
         </div>
@@ -117,11 +103,14 @@ export function BurgerIngredients() {
         <div className={`${styles.ingredientsTable} pl-4 pr-4`}>
           {sauces.map((i) => {
             return (
-              <IngredientCard
+              <Link
                 key={i._id}
-                ingredientId={i._id}
-                showModal={() => showModal(i)}
-              />
+                to={`/ingredients/${i._id}`}
+                style={{ textDecoration: "none", color: "#F2F2F3" }}
+                state={{ backgroundLocation: location }}
+              >
+                <IngredientCard ingredientId={i._id} />
+              </Link>
             );
           })}
         </div>
@@ -131,20 +120,18 @@ export function BurgerIngredients() {
         <div className={`${styles.ingredientsTable} pl-4 pr-4`}>
           {mains.map((i) => {
             return (
-              <IngredientCard
+              <Link
                 key={i._id}
-                ingredientId={i._id}
-                showModal={() => showModal(i)}
-              />
+                to={`/ingredients/${i._id}`}
+                style={{ textDecoration: "none", color: "#F2F2F3" }}
+                state={{ backgroundLocation: location }}
+              >
+                <IngredientCard ingredientId={i._id} />
+              </Link>
             );
           })}
         </div>
       </div>
-      {modalDetail && (
-        <Modal hideFunction={hideModal}>
-          <IngredientDetails></IngredientDetails>
-        </Modal>
-      )}
     </section>
   );
 }

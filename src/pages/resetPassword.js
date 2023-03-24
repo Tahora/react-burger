@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styles from "./common.module.css";
 import {
-  EmailInput,
+  Input,
+  PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
-import { resetForm, setFormValue } from "../services/actions/forms";
-import { resetPassword } from "../services/actions/authorization";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { resetForm, setFormValue } from "../services/actions/forms";
+import { setPassword } from "../services/actions/authorization";
 
-export function ForgotPasswordPage() {
+export function ResetPasswordPage() {
   const dispatch = useDispatch();
+  const { state } = useLocation();
   let navigate = useNavigate();
-  const { email } = useSelector((state) => state.forms);
-  const { resetPasswordFailed, resetPasswordRequest, user } = useSelector(
+  const { password, token } = useSelector((state) => state.forms);
+  const { setPasswordFailed, setPasswordRequest, user } = useSelector(
     (state) => state.register
   );
   const [redirect, setRedirect] = useState(false);
@@ -24,46 +26,55 @@ export function ForgotPasswordPage() {
     };
   }, []);
 
+  if (state?.from !== "forgot-page") {
+    return navigate("/");
+  }
+
+  if (redirect || (user?.email && user?.name)) {
+    return navigate("/");
+  }
+
   const onFormChange = (e) => {
     dispatch(setFormValue(e.target.name, e.target.value));
   };
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(resetPassword(email)).then((res) => {
-      if (!(resetPasswordFailed || resetPasswordRequest)) {
+    dispatch(setPassword({ password, token })).then((res) => {
+      if (!(setPasswordFailed || setPasswordRequest)) {
         setRedirect(true);
       }
     });
   };
 
-  if (redirect) {
-    return navigate("/reset-password", { state: { from: "forgot-page" } });
-  }
-
-  if (user?.email && user?.name) {
-    return navigate("/");
-  }
-
   return (
     <form className={`${styles.container}`} onSubmit={onFormSubmit}>
       <h1 className="text text_type_main-medium">Восстановление пароля</h1>
-
-      <EmailInput
+      <PasswordInput
         onChange={(e) => onFormChange(e)}
-        value={email}
-        name={"email"}
-        placeholder="Укажите e-mail"
-        isIcon={false}
+        value={password}
+        name={"password"}
+        placeholder={"Введите новый пароль"}
+      />
+
+      <Input
+        type={"text"}
+        placeholder={"Введите код из письма"}
+        onChange={(e) => onFormChange(e)}
+        value={token}
+        name={"token"}
+        error={false}
+        size={"default"}
+        extraClass="ml-1"
       />
       <Button
         htmlType="submit"
         type="primary"
         size="large"
         extraClass="pt-4 pb-4 mb-4"
-        disabled={resetPasswordRequest}
+        disabled={setPasswordRequest}
       >
-        Восстановить
+        Сохранить
       </Button>
       <div>
         <div className={`${styles.linkContainer} mt-10`}>

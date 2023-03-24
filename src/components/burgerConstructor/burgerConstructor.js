@@ -6,11 +6,19 @@ import { OrderTotal } from "../orderTotal/orderTotal";
 import { OrderDetails } from "../orderDetails/orderDetails";
 import { Modal } from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
-import { increaseCounter,  decreaseCounter} from "../../services/actions/ingredients";
-import { getOrder} from "../../services/actions/order";
-import { addBun,  addIngredient,  deleteIngredient,} from "../../services/actions/constructor";
+import {
+  increaseCounter,
+  decreaseCounter,
+} from "../../services/actions/ingredients";
+import { tryGetOrder } from "../../services/actions/order";
+import {
+  addBun,
+  addIngredient,
+  deleteIngredient,
+} from "../../services/actions/constructor";
 import { useDrop } from "react-dnd";
 import { dragTypesConstructor, strBun } from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 export function BurgerConstructor() {
   const total = (bun, items) => {
@@ -22,6 +30,8 @@ export function BurgerConstructor() {
       : 0;
     return bunsTotal + mainTotal;
   };
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.register);
 
   const dispatch2 = useDispatch();
 
@@ -60,6 +70,9 @@ export function BurgerConstructor() {
   };
 
   const handleClick = () => {
+    if (!(user?.email && user?.name)) {
+      return navigate("/login");
+    }
     const ingredients = [
       bun._id,
       ...mainItems.map((i) => {
@@ -67,7 +80,7 @@ export function BurgerConstructor() {
       }),
       bun._id,
     ];
-    dispatch2(getOrder(ingredients));
+    dispatch2(tryGetOrder({ingredientsId: ingredients}));
     showModal();
   };
 

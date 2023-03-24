@@ -20,21 +20,24 @@ export function AppHeader() {
             <HeaderItem
               caption="Конструктор"
               icon={BurgerIcon}
-              isActive={true}
+              href="/"
+              //isActive={true}
             />
           </li>
           <li>
             <HeaderItem
               caption="Лента заказов"
               icon={ListIcon}
-              isActive={false}
+              href="/profile/orders"
+              //     isActive={false}
             />
           </li>
           <li className={styles.lastItem}>
             <HeaderItem
               caption="Личный кабинет"
               icon={ProfileIcon}
-              isActive={false}
+              href="/profile"
+              // isActive={false}
             />
           </li>
         </ul>

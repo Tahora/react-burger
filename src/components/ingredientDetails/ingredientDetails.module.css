@@ -18,5 +18,5 @@
 .header {
     line-height: 64px;
     text-align: left;
-    align-self: flex-start;
+    max-width: 720px;
 }

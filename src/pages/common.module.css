@@ -1,4 +1,4 @@
-.container{
+.container {
     display: flex;
     justify-content: stretch;
     width: 430px;
@@ -9,14 +9,14 @@
     margin-bottom: auto;
 }
 
-.link{
+.link {
     text-decoration: none;
     color: #4C4CFF;
 }
 
-.linkContainer{
+.linkContainer {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     column-gap: 8px;
 
 }

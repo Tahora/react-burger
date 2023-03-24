@@ -22,11 +22,7 @@ export function IngredientCard(props) {
   });
 
   return (
-    <div
-      className={styles.ingredientCard}
-      onClick={props.showModal}
-      ref={dragRef}
-    >
+    <div className={styles.ingredientCard} ref={dragRef}>
       {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
       <img src={`${image}`} alt={name} />
       <div className={`${styles.priceArea} mt-2 mb-2`}>
@@ -42,5 +38,4 @@ export function IngredientCard(props) {
 
 IngredientCard.propTypes = {
   ingredientId: PropTypes.string.isRequired,
-  showModal: PropTypes.func.isRequired,
 };

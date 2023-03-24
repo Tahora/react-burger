@@ -1,13 +1,19 @@
 import React from "react";
 import styles from "./ingredientDetails.module.css";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export function IngredientDetails() {
-  const modalDetail = useSelector(
-    (store) => store.ingredientDetail.ingredientDetail
+  const { id } = useParams();
+
+  const modalDetail = useSelector((store) =>
+    store.ingredients.ingredients.find((item) => {
+      return item._id === id;
+    })
   );
-  const { name, proteins, fat, carbohydrates, calories, image_large } =
-    modalDetail;
+  const { name, proteins, fat, carbohydrates, calories, image_large } = {
+    ...modalDetail,
+  };
 
   return (
     <div className={styles.ingredientDetails}>
