@@ -58,7 +58,6 @@ export function ProfileInfo() {
         type={"email"}
         name={"email"}
         placeholder="Логин"
-        isIcon={false}
         icon={"EditIcon"}
       />
       <Input

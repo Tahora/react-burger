@@ -39,7 +39,6 @@ export function RegistrationPage() {
         value={email}
         name={"email"}
         placeholder="E-mail"
-        isIcon={false}
       />
       <PasswordInput
         onChange={(e) => onFormChange(e)}

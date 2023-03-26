@@ -50,7 +50,6 @@ export function ForgotPasswordPage() {
         value={email}
         name={"email"}
         placeholder="Укажите e-mail"
-        isIcon={false}
       />
       <Button
         htmlType="submit"

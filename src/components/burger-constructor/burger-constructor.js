@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect} from "react";
 import styles from "./burger-constructor.module.css";
 import commonStyles from "../common.module.css";
 import { ConstructorItem } from "../constructor-item/constructor-item";
@@ -8,13 +8,14 @@ import { Modal } from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increaseCounter,
-  decreaseCounter,
+  decreaseCounter
 } from "../../services/actions/ingredients";
 import { tryGetOrder } from "../../services/actions/order";
 import {
   addBun,
   addIngredient,
   deleteIngredient,
+  setTotal
 } from "../../services/actions/constructor";
 import { useDrop } from "react-dnd";
 import { dragTypesConstructor, strBun } from "../../utils/constants";
@@ -34,7 +35,7 @@ export function BurgerConstructor() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.register);
 
-  const dispatch2 = useDispatch();
+  const dispatch = useDispatch();
 
   const mainItems = useSelector((store) => store.constructor.ingredients);
   const bun = useSelector((store) => store.constructor.bun);
@@ -44,23 +45,17 @@ export function BurgerConstructor() {
     drop(item) {
       if (!bun || bun._id !== item._id) {
         if (item.type === strBun && bun) {
-          dispatch2(decreaseCounter(bun._id, 2));
+          dispatch(decreaseCounter(bun._id, 2));
         }
         item.uuid = v4();
-        dispatch2(item.type === strBun ? addBun(item) : addIngredient(item));
-        dispatch2(increaseCounter(item._id, item.type === strBun ? 2 : 1));
+        dispatch(item.type === strBun ? addBun(item) : addIngredient(item));
+        dispatch(increaseCounter(item._id, item.type === strBun ? 2 : 1));
       }
     },
   });
 
-  function reducer(state, action) {
-    return total(action.bun, action.items);
-  }
-
-  const [stateTotal, dispatch] = useReducer(reducer, 0);
-
   useEffect(() => {
-    dispatch({ bun: bun, items: mainItems });
+    dispatch(setTotal(total(bun, mainItems)));
   }, [bun, mainItems]);
 
   const [modalState, setModalState] = React.useState(false);
@@ -82,13 +77,13 @@ export function BurgerConstructor() {
       }),
       bun._id,
     ];
-    dispatch2(tryGetOrder({ ingredientsId: ingredients }));
+    dispatch(tryGetOrder({ ingredientsId: ingredients }));
     showModal();
   };
 
   function onDelete(ind, id) {
-    dispatch2(deleteIngredient(ind));
-    dispatch2(decreaseCounter(id));
+    dispatch(deleteIngredient(ind));
+    dispatch(decreaseCounter(id));
   }
 
   return (
@@ -135,7 +130,7 @@ export function BurgerConstructor() {
         />
       )}
       <div className="mt-10 mr-4">
-        <OrderTotal total={stateTotal} onClick={handleClick} />
+        <OrderTotal  onClick={handleClick} />
       </div>
       {modalState && (
         <Modal hideFunction={hideModal} isOver={true}>
