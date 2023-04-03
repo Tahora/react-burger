@@ -46,6 +46,10 @@ export function App() {
     dispatch(getIngredients());
   }, []);
 
+  const hideModal = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -95,8 +99,7 @@ export function App() {
               index
               element={
                 <ProfilePage>
-                  {" "}
-                  <ProfileInfo />{" "}
+                  <ProfileInfo />
                 </ProfilePage>
               }
             />
@@ -105,7 +108,6 @@ export function App() {
               element={
                 <ProfilePage>
                   <WsConnector>
-                    {" "}
                     <OrdersList filterUserOrders={true} />
                   </WsConnector>
                 </ProfilePage>
@@ -116,7 +118,6 @@ export function App() {
               path="orders/:id"
               element={
                 <WsConnector>
-                  {" "}
                   <OrderViewDetailed />
                 </WsConnector>
               }
@@ -144,8 +145,7 @@ export function App() {
             path="/feed"
             element={
               <WsConnector>
-                {" "}
-                <OrdersListPage />{" "}
+                <OrdersListPage />
               </WsConnector>
             }
           />
@@ -153,8 +153,7 @@ export function App() {
             path="/feed/:id"
             element={
               <WsConnector>
-                {" "}
-                <OrderViewDetailed />{" "}
+                <OrderViewDetailed />
               </WsConnector>
             }
           />
@@ -167,12 +166,7 @@ export function App() {
             <Route
               path="/ingredients/:id"
               element={
-                <Modal
-                  hideFunction={() => {
-                    navigate(-1);
-                  }}
-                  isOver={true}
-                >
+                <Modal hideFunction={hideModal} isOver={true}>
                   <IngredientDetails></IngredientDetails>
                 </Modal>
               }
@@ -180,12 +174,7 @@ export function App() {
             <Route
               path="/feed/:id"
               element={
-                <Modal
-                  hideFunction={() => {
-                    navigate(-1);
-                  }}
-                  isOver={true}
-                >
+                <Modal hideFunction={hideModal} isOver={true}>
                   <OrderViewDetailed />
                 </Modal>
               }
@@ -193,12 +182,7 @@ export function App() {
             <Route
               path="/profile/orders/:id"
               element={
-                <Modal
-                  hideFunction={() => {
-                    navigate(-1);
-                  }}
-                  isOver={true}
-                >
+                <Modal hideFunction={hideModal} isOver={true}>
                   <OrderViewDetailed />
                 </Modal>
               }

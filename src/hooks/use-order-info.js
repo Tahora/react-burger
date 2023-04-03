@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { v4 } from "uuid";
 
-export function UseOrderInfo(orderId) {
+export function useOrderInfo(orderId) {
   const order = useSelector((state) =>
     state.ws?.messages[state.ws?.messages.length - 1]?.orders?.find((i) => {
       return i?._id === orderId;
@@ -17,12 +17,12 @@ export function UseOrderInfo(orderId) {
     })
   );
 
-  const total = useCallback(() => {
+  const total = useMemo(() => {
     return ingredients?.reduce((prevVal, item) => {
       prevVal += item?.price ? item.price : 0;
       return prevVal;
     }, 0);
-  }, [JSON.stringify(ingredients)]);
+  }, [ingredients]);
 
   const uniqueIngredients = ingredients?.reduce((prevVal, i) => {
     if (i?._id) {

@@ -1,3 +1,5 @@
+import { wsCloseReason } from "../utils/constants";
+
 export const socketMiddleware = (wsActions) => {
   return (store) => {
     let socket = null;
@@ -22,7 +24,7 @@ export const socketMiddleware = (wsActions) => {
       }
       if (socket) {
         if (type === wsClose) {
-          socket.close(1000, "закрыто клиентом");
+          socket.close(wsCloseReason.closeNormal, "закрыто клиентом");
         }
 
         socket.onopen = (event) => {

@@ -59,8 +59,8 @@ export function BurgerConstructor() {
   }, [bun, mainItems]);
 
   const [modalState, setModalState] = React.useState(false);
-  const showModal = () => {
-    setModalState(true);
+  const showModal = (message) => {
+    setModalState(message || true);
   };
   const hideModal = () => {
     setModalState(null);
@@ -70,19 +70,17 @@ export function BurgerConstructor() {
     if (!(user?.email && user?.name)) {
       return navigate("/login");
     }
-    const ingredients = bun?._id
-      ? [
-          bun._id,
-          ...mainItems.map((i) => {
-            return i._id;
-          }),
-          bun._id,
-        ]
-      : [
-          ...mainItems.map((i) => {
-            return i._id;
-          }),
-        ];
+    if (!bun?._id) {
+      showModal("Нельзя делать бургеры без булок. Выберите себе булочку!");
+      return;
+    }
+    const ingredients = [
+      bun._id,
+      ...mainItems.map((i) => {
+        return i._id;
+      }),
+      bun._id,
+    ];
     dispatch(tryGetOrder({ ingredientsId: ingredients }));
     showModal();
   };
@@ -140,7 +138,11 @@ export function BurgerConstructor() {
       </div>
       {modalState && (
         <Modal hideFunction={hideModal} isOver={true}>
-          <OrderDetails />
+          {modalState === true ? (
+            <OrderDetails />
+          ) : (
+            <div className="text text_type_main-default">{modalState}</div>
+          )}
         </Modal>
       )}
     </section>

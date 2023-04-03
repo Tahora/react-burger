@@ -31,7 +31,6 @@ export const wsReducer = (state = initialStateWsSocket, action) => {
       };
 
     case WS_GET_MESSAGE: {
-      console.log(`get from WS ${action.payload}`);
       return {
         ...state,
         messages: [

@@ -4,11 +4,11 @@ import { TimeView } from "./components/time-view";
 import { PriceView } from "./components/price-view";
 import { StatusView } from "./components/status-view";
 import { IngredientIcon } from "./components/ingredient-icon";
-import { UseOrderInfo } from "../../hooks/use-order-info";
+import { useOrderInfo } from "../../hooks/use-order-info";
 import PropTypes from "prop-types";
 
 export function OrderView(props) {
-  const { order, total, uniqueIngredients } = UseOrderInfo(props.id);
+  const { order, total, uniqueIngredients } = useOrderInfo(props.id);
   const showState = props?.showState || false;
   const ordersNums = Object.keys(uniqueIngredients);
   const overflow = ordersNums.length - 6;
@@ -44,7 +44,7 @@ export function OrderView(props) {
         })}
       </div>
       <div className={`${styles.priceArea} mt-8 mb-2`}>
-        <PriceView text={total()} />
+        <PriceView text={`${total}`} />
       </div>
     </div>
   );

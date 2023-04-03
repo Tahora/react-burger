@@ -21,3 +21,9 @@ export const orderStates = {
   pending: "Готовится",
   created: "Создан",
 };
+
+export const wsCloseReason = {
+  closeNormal: 1000,
+  closeGoingAway: 1001,
+  closedNoStatus: 1005,
+};

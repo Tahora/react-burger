@@ -17,5 +17,5 @@ export function TimeView(props) {
 }
 
 TimeView.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.string,
 };

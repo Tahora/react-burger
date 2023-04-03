@@ -22,7 +22,7 @@ export function OrdersList() {
               <Link
                 key={i._id}
                 to={`${i._id}`}
-                style={{ textDecoration: "none", color: "#F2F2F3" }}
+                className={styles.link}
                 state={{ backgroundLocation: location }}
               >
                 <OrderView id={i._id} showState={filterUserOrders} />

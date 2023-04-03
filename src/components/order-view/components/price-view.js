@@ -15,5 +15,5 @@ export function PriceView(props) {
 }
 
 PriceView.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
 };

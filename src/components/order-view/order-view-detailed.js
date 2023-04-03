@@ -4,14 +4,13 @@ import { TimeView } from "./components/time-view";
 import { PriceView } from "./components/price-view";
 import { StatusView } from "./components/status-view";
 import { IngredientView } from "./components/ingredient-view";
-import { UseOrderInfo } from "../../hooks/use-order-info";
+import { useOrderInfo } from "../../hooks/use-order-info";
 import { useParams } from "react-router-dom";
 
 export function OrderViewDetailed() {
   const { id } = useParams();
-  const { order, total, uniqueIngredients } = UseOrderInfo(id);
+  const { order, total, uniqueIngredients } = useOrderInfo(id);
 
-  console.log(`OrderViewDetailed rendered`);
   return (
     <div className={`${stylesDetailed.container}`}>
       <p
@@ -42,7 +41,7 @@ export function OrderViewDetailed() {
       </div>
       <div className={`${stylesDetailed.results} mt-8 mb-2`}>
         <TimeView date={order?.createdAt} />
-        <PriceView text={total()} />
+        <PriceView text={`${total}`} />
       </div>
     </div>
   );

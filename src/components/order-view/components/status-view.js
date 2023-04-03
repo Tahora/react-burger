@@ -15,5 +15,5 @@ export function StatusView(props) {
 }
 
 StatusView.propTypes = {
-  status: PropTypes.oneOf(["done", "pending", "created"]).isRequired,
+  status: PropTypes.oneOf(["done", "pending", "created"]),
 };

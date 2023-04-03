@@ -2,7 +2,7 @@ import styles from "./ingredient-icon.module.css";
 import PropTypes from "prop-types";
 
 export function IngredientIcon(props) {
-  const t = (
+  return (
     <div
       style={{ zIndex: props?.index || 0 }}
       className={`${styles.iconContainer}`}
@@ -17,8 +17,6 @@ export function IngredientIcon(props) {
       )}
     </div>
   );
-
-  return t;
 }
 
 IngredientIcon.propTypes = {
