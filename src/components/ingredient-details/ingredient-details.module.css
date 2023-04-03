@@ -1,0 +1,22 @@
+.ingredientDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.nutritionGrid {
+    display: grid;
+    grid-template-columns: 120px 112px 112px 112px;
+    column-gap: 20px;
+    row-gap: 8px;
+    color: #8585AD;
+    justify-items: center;
+}
+
+.header {
+    line-height: 64px;
+    text-align: left;
+    max-width: 720px;
+}

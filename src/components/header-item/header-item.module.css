@@ -1,0 +1,17 @@
+.headerItem {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    color: #8585AD;
+}
+
+.active {
+    color: #F2F2F3;
+}
+
+.headerItemCaption {
+    margin: 0 0 0 8px;
+}
+
+

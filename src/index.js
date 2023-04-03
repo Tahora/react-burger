@@ -6,6 +6,8 @@ import { rootReducer, initState } from "./services/reducers";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import retry from "./middleware/retry-middleware";
+import { BrowserRouter } from "react-router-dom";
 
 const composeEnhancers = composeWithDevTools({
   // Specify name here, actionsBlacklist, actionsCreators and other options if needed
@@ -14,15 +16,16 @@ const store = createStore(
   rootReducer,
   initState,
   composeEnhancers(
-    applyMiddleware(thunk)
+    applyMiddleware(retry, thunk)
     // other store enhancers if any
   )
 );
 
 const root = createRoot(document.querySelector("#root"));
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
 );
-
