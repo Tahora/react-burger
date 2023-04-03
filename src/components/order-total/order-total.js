@@ -5,16 +5,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 export function OrderTotal(props) {
-    const {total} = useSelector((store) => store.constructor);
+  const { total } = useSelector((store) => store.constructor);
 
   return (
     <div className={`${styles.container}`}>
-      <p className="text text_type_digits-medium">
-        {total ? total : 0}
-      </p>
+      <p className="text text_type_digits-medium">{total ? total : 0}</p>
       <div className={`${styles.totalIconContainer} ml-2 mr-10`}>
         <CurrencyIcon type="primary" />
       </div>

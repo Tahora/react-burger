@@ -141,7 +141,7 @@ export function refreshToken(isContinueExeption = false) {
       type: REFRESH_TOKEN_REQUEST,
     });
     // Запрашиваем данные у сервера
-    return getData(refreshTokenRequest)
+    const r = getData(refreshTokenRequest)
       .then((res) => {
         dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS, data: res });
       })
@@ -151,11 +151,12 @@ export function refreshToken(isContinueExeption = false) {
           throw err;
         }
       });
+    return r;
   };
 }
 
 export function getUserData(isContinueExeption = false) {
-  return async function (dispatch) {
+  return function (dispatch) {
     // начали выполнять запрос
     dispatch({
       type: GET_USER_DATA_REQUEST,
@@ -203,8 +204,8 @@ export const tryGetUserData = ({ errName = "none" }) => {
   };
 };
 
-export const trySetUserData = ({fields, errName = "none" }) => {
+export const trySetUserData = ({ fields, errName = "none" }) => {
   return function (dispatch) {
-    dispatch([setUserData(fields,true), refreshToken(true)]);
+    dispatch([setUserData(fields, true), refreshToken(true)]);
   };
 };

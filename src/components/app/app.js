@@ -24,6 +24,10 @@ import { tryGetUserData } from "../../services/actions/authorization";
 import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
 import { Modal } from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { OrdersList } from "../olders-list/orders-list";
+import { OrderViewDetailed } from "../order-view/order-view-detailed";
+import { WsConnector } from "../ws-connector/ws-connector";
+import { OrdersListPage } from "../../pages/orders-list";
 
 export function App() {
   const { ingredients, isLoading, hasError } = useSelector((store) => ({
@@ -88,22 +92,37 @@ export function App() {
             element={<ProtectedRouteElement children={<Outlet />} />}
           >
             <Route
-              path=""
+              index
               element={
-                <ProtectedRouteElement
-                  children={
-                    <ProfilePage>
-                      <ProfileInfo />
-                    </ProfilePage>
-                  }
-                />
+                <ProfilePage>
+                  {" "}
+                  <ProfileInfo />{" "}
+                </ProfilePage>
               }
             />
             <Route
               path="orders"
-              element={<ProtectedRouteElement children={<></>} />}
+              element={
+                <ProfilePage>
+                  <WsConnector>
+                    {" "}
+                    <OrdersList filterUserOrders={true} />
+                  </WsConnector>
+                </ProfilePage>
+              }
+            />
+
+            <Route
+              path="orders/:id"
+              element={
+                <WsConnector>
+                  {" "}
+                  <OrderViewDetailed />
+                </WsConnector>
+              }
             />
           </Route>
+
           <Route
             path="/"
             element={
@@ -121,6 +140,25 @@ export function App() {
               </>
             }
           />
+          <Route
+            path="/feed"
+            element={
+              <WsConnector>
+                {" "}
+                <OrdersListPage />{" "}
+              </WsConnector>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              <WsConnector>
+                {" "}
+                <OrderViewDetailed />{" "}
+              </WsConnector>
+            }
+          />
+
           <Route path="/ingredients/:id" element={<IngredientDetails />} />
         </Routes>
 
@@ -136,6 +174,32 @@ export function App() {
                   isOver={true}
                 >
                   <IngredientDetails></IngredientDetails>
+                </Modal>
+              }
+            />
+            <Route
+              path="/feed/:id"
+              element={
+                <Modal
+                  hideFunction={() => {
+                    navigate(-1);
+                  }}
+                  isOver={true}
+                >
+                  <OrderViewDetailed />
+                </Modal>
+              }
+            />
+            <Route
+              path="/profile/orders/:id"
+              element={
+                <Modal
+                  hideFunction={() => {
+                    navigate(-1);
+                  }}
+                  isOver={true}
+                >
+                  <OrderViewDetailed />
                 </Modal>
               }
             />

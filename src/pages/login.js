@@ -5,7 +5,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../services/actions/authorization";
 import { useForm } from "../hooks/use-form";
@@ -15,10 +15,7 @@ export function LoginPage() {
   const { form, onFormChange } = useForm(dispatch);
   const { email, password } = form;
 
-
-  const { registerRequest } = useSelector(
-    (state) => state.register
-  );
+  const { registerRequest } = useSelector((state) => state.register);
 
   const onFormSubmit = (e) => {
     e.preventDefault();

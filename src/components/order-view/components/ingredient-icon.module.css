@@ -1,0 +1,33 @@
+
+.iconContainer {
+    border-radius: 50%;
+    background: linear-gradient(45deg, #a921be, #1e41f6);
+    display: inline-block;
+    line-height: 0;
+    padding: 0;
+    position: relative;
+}
+
+.icon {
+    margin: 2px;
+    padding: 0;
+    height: 62px;
+    width: 62px;
+    border-color: transparent;
+    border-radius: 50%;
+    background-color: #131316;
+    object-fit: cover;
+}
+
+.overlay {
+    background: #1C1C21;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}

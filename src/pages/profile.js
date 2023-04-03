@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./profile.module.css";
 import { logoutUser } from "../services/actions/authorization";
 import { useDispatch } from "react-redux";
@@ -27,14 +27,14 @@ export function ProfilePage(props) {
         >
           Профиль
         </NavLink>
-        <Link
-          className={`${styles.menuitem} text text_type_main-medium`}
+        <NavLink
+          className={({ isActive }) => linkStyle(isActive, "")}
           to="/profile/orders"
         >
           История заказов
-        </Link>
+        </NavLink>
         <NavLink
-            to="/"
+          to="/"
           className={`${styles.menuitem} text text_type_main-medium`}
           onClick={(e) => logout(e)}
         >

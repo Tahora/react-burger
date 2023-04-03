@@ -1,0 +1,12 @@
+
+.priceArea {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+}
+
+.price {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}

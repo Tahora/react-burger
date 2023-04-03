@@ -1,6 +1,9 @@
 import { getCookie } from "./cookie";
 import { tokens } from "./constants";
 
+export const WS_BASE_URL = "wss://norma.nomoreparties.space/orders";
+export const WS_BASE_URL_ALL = "wss://norma.nomoreparties.space/orders/all";
+
 const BASE_URL = "https://norma.nomoreparties.space/api";
 
 const urlApi = {
@@ -140,7 +143,7 @@ export function getUserDataRequest() {
 export function setUserDataRequest(fields) {
   const token = getCookie(tokens.accessToken);
   if (!token) throw new Error("Empty accessToken");
-  const {email, name, password}={...fields};
+  const { email, name, password } = { ...fields };
   return fetch(urlApi.user, {
     method: "PATCH",
     headers: {

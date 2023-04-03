@@ -28,7 +28,7 @@ export function AppHeader() {
             <HeaderItem
               caption="Лента заказов"
               icon={ListIcon}
-              href="/profile/orders"
+              href="/feed"
               //     isActive={false}
             />
           </li>

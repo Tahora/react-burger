@@ -5,7 +5,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import {  setFormValue } from "../../services/actions/forms";
+import { setFormValue } from "../../services/actions/forms";
 import { trySetUserData } from "../../services/actions/authorization";
 import { useForm } from "../../hooks/use-form";
 
@@ -25,11 +25,11 @@ export function ProfileInfo() {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    const fields={};
-    if(userName!==name) fields.name=name;
-    if(userEmail!==email) fields.email=email;
-    fields.password=password;
-    dispatch(trySetUserData({fields, errName: "" }));
+    const fields = {};
+    if (userName !== name) fields.name = name;
+    if (userEmail !== email) fields.email = email;
+    fields.password = password;
+    dispatch(trySetUserData({ fields, errName: "" }));
   };
 
   const onCancel = () => {
@@ -38,7 +38,7 @@ export function ProfileInfo() {
     dispatch(setFormValue("password", ""));
   };
 
-  const buttons = userName !== name || userEmail !== email ;
+  const buttons = userName !== name || userEmail !== email;
 
   return (
     <form className={`${styles.container}`} onSubmit={onFormSubmit}>

@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import styles from "./burger-constructor.module.css";
 import commonStyles from "../common.module.css";
 import { ConstructorItem } from "../constructor-item/constructor-item";
@@ -8,14 +8,14 @@ import { Modal } from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increaseCounter,
-  decreaseCounter
+  decreaseCounter,
 } from "../../services/actions/ingredients";
 import { tryGetOrder } from "../../services/actions/order";
 import {
   addBun,
   addIngredient,
   deleteIngredient,
-  setTotal
+  setTotal,
 } from "../../services/actions/constructor";
 import { useDrop } from "react-dnd";
 import { dragTypesConstructor, strBun } from "../../utils/constants";
@@ -70,13 +70,19 @@ export function BurgerConstructor() {
     if (!(user?.email && user?.name)) {
       return navigate("/login");
     }
-    const ingredients = [
-      bun._id,
-      ...mainItems.map((i) => {
-        return i._id;
-      }),
-      bun._id,
-    ];
+    const ingredients = bun?._id
+      ? [
+          bun._id,
+          ...mainItems.map((i) => {
+            return i._id;
+          }),
+          bun._id,
+        ]
+      : [
+          ...mainItems.map((i) => {
+            return i._id;
+          }),
+        ];
     dispatch(tryGetOrder({ ingredientsId: ingredients }));
     showModal();
   };
@@ -130,7 +136,7 @@ export function BurgerConstructor() {
         />
       )}
       <div className="mt-10 mr-4">
-        <OrderTotal  onClick={handleClick} />
+        <OrderTotal onClick={handleClick} />
       </div>
       {modalState && (
         <Modal hideFunction={hideModal} isOver={true}>
