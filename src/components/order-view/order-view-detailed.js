@@ -10,6 +10,10 @@ import { useParams } from "react-router-dom";
 export function OrderViewDetailed() {
   const { id } = useParams();
   const { order, total, uniqueIngredients } = useOrderInfo(id);
+  if (!order)
+  {
+      return (<></>)
+  }
 
   return (
     <div className={`${stylesDetailed.container}`}>
