@@ -6,6 +6,7 @@ import { OrderView } from "../order-view/order-view";
 import { Link, useLocation } from "react-router-dom";
 
 export function OrdersList() {
+
   const all = useSelector(
     (state) => state.ws?.messages[state.ws?.messages.length - 1]
   );
@@ -23,7 +24,7 @@ export function OrdersList() {
                 key={i._id}
                 to={`${i._id}`}
                 className={styles.link}
-                state={{ backgroundLocation: location }}
+                state={{ backgroundLocation:  location }}
               >
                 <OrderView id={i._id} showState={filterUserOrders} />
               </Link>

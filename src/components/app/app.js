@@ -3,7 +3,6 @@ import {
   Routes,
   Route,
   useLocation,
-  Outlet,
   useNavigate,
 } from "react-router-dom";
 import styles from "./app.module.css";
@@ -30,6 +29,7 @@ import { WsConnector } from "../ws-connector/ws-connector";
 import { OrdersListPage } from "../../pages/orders-list";
 
 export function App() {
+
   const { ingredients, isLoading, hasError } = useSelector((store) => ({
     ingredients: store.ingredients.ingredients,
     isLoading: store.ingredients.ingredientsRequest,
@@ -47,7 +47,7 @@ export function App() {
   }, []);
 
   const hideModal = () => {
-    navigate(-1);
+    navigate(location.state?.backgroundLocation || location);
   };
 
   return (
@@ -55,74 +55,13 @@ export function App() {
       <AppHeader />
       <main className={styles.content}>
         <Routes location={location.state?.backgroundLocation || location}>
-          <Route
-            path="/register"
-            element={
-              <ProtectedRouteElement
-                anonymous={true}
-                children={<RegistrationPage />}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <ProtectedRouteElement
-                anonymous={true}
-                children={<LoginPage />}
-              />
-            }
-          />
-          <Route
-            path="/forgot-password"
-            element={
-              <ProtectedRouteElement
-                anonymous={true}
-                children={<ForgotPasswordPage />}
-              />
-            }
-          />
-          <Route
-            path="/reset-password"
-            element={
-              <ProtectedRouteElement
-                anonymous={true}
-                children={<ResetPasswordPage />}
-              />
-            }
-          />
-          <Route
-            path="/profile"
-            element={<ProtectedRouteElement children={<Outlet />} />}
-          >
-            <Route
-              index
-              element={
-                <ProfilePage>
-                  <ProfileInfo />
-                </ProfilePage>
-              }
-            />
-            <Route
-              path="orders"
-              element={
-                <ProfilePage>
-                  <WsConnector>
-                    <OrdersList filterUserOrders={true} />
-                  </WsConnector>
-                </ProfilePage>
-              }
-            />
-
-            <Route
-              path="orders/:id"
-              element={
-                <WsConnector>
-                  <OrderViewDetailed />
-                </WsConnector>
-              }
-            />
-          </Route>
+          <Route path="/register" element={<ProtectedRouteElement anonymous={true} children={<RegistrationPage />} /> }/>
+          <Route path="/login"  element={ <ProtectedRouteElement  rootLocation={location} anonymous={true} children={<LoginPage />} /> } />
+          <Route path="/forgot-password" element={ <ProtectedRouteElement anonymous={true} children={<ForgotPasswordPage />} /> }/>
+          <Route path="/reset-password" element={ <ProtectedRouteElement anonymous={true} children={<ResetPasswordPage />} /> } />
+          <Route path="/profile" element={<ProtectedRouteElement children={ <ProfilePage> <ProfileInfo /> </ProfilePage> } />} />
+           <Route path="/profile/orders" element={<ProtectedRouteElement rootLocation={location} children={<WsConnector><ProfilePage> <OrdersList filterUserOrders={true} /> </ProfilePage> </WsConnector>} />} />
+          <Route path="/profile/orders/:id" element={<ProtectedRouteElement children={<WsConnector><OrderViewDetailed /> </WsConnector>} />}/>
 
           <Route
             path="/"

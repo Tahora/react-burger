@@ -20,7 +20,7 @@ export function IngredientIcon(props) {
 }
 
 IngredientIcon.propTypes = {
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
   image: PropTypes.string.isRequired,
-  hidedCount: PropTypes.number.isRequired,
+  hidedCount: PropTypes.number,
 };
