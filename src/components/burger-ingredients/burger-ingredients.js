@@ -59,26 +59,6 @@ export function BurgerIngredients() {
     setProgramScroll(false);
   };
 
-  /*
-      const scrollToSection=(tabValue)=>
-      {
-        windows.scrollTo(posX, posY)
-        //setCurrent(tabValue);
-        switch (tabValue){
-          case tabItemBun:{
-            refBun.current.scrollIntoView();
-          }
-          case tabItemSauce:
-          {
-            refSauce.current.scrollIntoView();
-          }
-          case tabItemMain:
-          {
-            refMain.current.scrollIntoView();
-          }
-        }
-    
-      }*/
 
   function handleScroll(e) {
     if (programScroll) {

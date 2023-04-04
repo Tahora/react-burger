@@ -12,7 +12,7 @@ export function OrderViewDetailed() {
   const { order, total, uniqueIngredients } = useOrderInfo(id);
   if (!order)
   {
-      return (<></>)
+      return null
   }
 
   return (
