@@ -1,9 +1,9 @@
 import styles from "./ingredient-view.module.css";
 import { IngredientIcon } from "./ingredient-icon";
 import { PriceView } from "./price-view";
-import PropTypes from "prop-types";
+import React from "react";
 
-export function IngredientView(props) {
+export const IngredientView: React.FC<{ image: string; name: string; countPrice:string }> = (props)=>{
   const { image, name, countPrice } = props;
   return (
     <div className={styles.container}>
@@ -16,8 +16,3 @@ export function IngredientView(props) {
   );
 }
 
-IngredientView.propTypes = {
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  countPrice: PropTypes.string.isRequired,
-};

@@ -1,8 +1,8 @@
 import { wsCloseReason } from "../utils/constants";
 import { Middleware } from "redux";
-import { IWsOrdersResponse } from "../utils/types";
+import {IWSActions, IWsOrdersResponse} from "../utils/types";
 
-export const socketMiddleware = (wsActions: any): Middleware => {
+export const socketMiddleware = (wsActions:IWSActions ): Middleware => {
   return (store) => {
     let socket: WebSocket | undefined = undefined;
 

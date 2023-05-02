@@ -1,14 +1,15 @@
 import styles from "./ingredient-icon.module.css";
-import PropTypes from "prop-types";
+import React from "react";
 
-export function IngredientIcon(props) {
+export const IngredientIcon: React.FC<{ index?:number;  image:string; hidedCount?:number }> = (props)=>{
+  const{hidedCount=0}=props
   return (
     <div
       style={{ zIndex: props?.index || 0 }}
       className={`${styles.iconContainer}`}
     >
       <img className={`${styles.icon}`} src={props.image} />
-      {props?.hidedCount > 0 && (
+      {hidedCount > 0 && (
         <div
           className={`${styles.icon} ${styles.overlay} text text_type_main-small`}
         >
@@ -19,8 +20,4 @@ export function IngredientIcon(props) {
   );
 }
 
-IngredientIcon.propTypes = {
-  index: PropTypes.number,
-  image: PropTypes.string.isRequired,
-  hidedCount: PropTypes.number,
-};
+

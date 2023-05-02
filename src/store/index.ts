@@ -13,8 +13,9 @@ import {
   WS_SEND_MESSAGE,
 } from "../services/actions/websocket";
 import { AnyAction } from "redux";
+import {IWSActions} from "../utils/types";
 
-const wsActions = {
+const wsActions:IWSActions = {
   wsInit: WS_CONNECTION_START,
   wsClose: WS_CONNECTION_STOP,
   wsSendMessage: WS_SEND_MESSAGE,

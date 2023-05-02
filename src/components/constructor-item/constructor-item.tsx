@@ -3,10 +3,10 @@ import styles from "./constructor-item.module.css";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 import { replaceConstructorItem } from "../../services/actions/constructor";
 import { dragTypesConstructor } from "../../utils/constants";
 import { TBunPosition, TDragItem } from "../types";
+import {useAppDispatch} from "../../hooks/redux";
 
 interface IConstructorItem {
   type?: TBunPosition;
@@ -21,7 +21,7 @@ interface IConstructorItem {
 
 export function ConstructorItem(props: IConstructorItem) {
   const { isLocked, dragType, index } = props;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [, dragRef] = useDrag<{ dragIndex: number }>({
     type: dragType,
     item: { dragIndex: index },

@@ -22,6 +22,7 @@ import { OrderViewDetailed } from "../order-view/order-view-detailed";
 import { WsConnector } from "../ws-connector/ws-connector";
 import { OrdersListPage } from "../../pages/orders-list";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import {RoutesPath} from "../../utils/types";
 
 export function App() {
   const { ingredients, isLoading, hasError } = useAppSelector((store) => ({
@@ -50,7 +51,7 @@ export function App() {
       <main className={styles.content}>
         <Routes location={location.state?.backgroundLocation || location}>
           <Route
-            path="/register"
+            path={RoutesPath.Register}
             element={
               <ProtectedRouteElement
                 anonymous={true}
@@ -59,7 +60,7 @@ export function App() {
             }
           />
           <Route
-            path="/login"
+            path={RoutesPath.Login}
             element={
               <ProtectedRouteElement
                 rootLocation={location}
@@ -69,7 +70,7 @@ export function App() {
             }
           />
           <Route
-            path="/forgot-password"
+            path={RoutesPath.FogotPassword}
             element={
               <ProtectedRouteElement
                 anonymous={true}
@@ -78,7 +79,7 @@ export function App() {
             }
           />
           <Route
-            path="/reset-password"
+            path={RoutesPath.ResetPassword}
             element={
               <ProtectedRouteElement
                 anonymous={true}
@@ -87,7 +88,7 @@ export function App() {
             }
           />
           <Route
-            path="/profile"
+            path={RoutesPath.Profile}
             element={
               <ProtectedRouteElement
                 children={
@@ -100,7 +101,7 @@ export function App() {
             }
           />
           <Route
-            path="/profile/orders"
+            path={RoutesPath.UserOrders}
             element={
               <ProtectedRouteElement
                 rootLocation={location}
@@ -116,7 +117,7 @@ export function App() {
             }
           />
           <Route
-            path="/profile/orders/:id"
+            path={RoutesPath.UserOrder}
             element={
               <ProtectedRouteElement
                 children={
@@ -129,7 +130,7 @@ export function App() {
           />
 
           <Route
-            path="/"
+            path={RoutesPath.Root}
             element={
               <>
                 {isLoading && "Загрузка..."}
@@ -146,7 +147,7 @@ export function App() {
             }
           />
           <Route
-            path="/feed"
+            path={RoutesPath.Feeds}
             element={
               <WsConnector>
                 <OrdersListPage />
@@ -154,7 +155,7 @@ export function App() {
             }
           />
           <Route
-            path="/feed/:id"
+            path={RoutesPath.Feed}
             element={
               <WsConnector>
                 <OrderViewDetailed />
@@ -162,13 +163,13 @@ export function App() {
             }
           />
 
-          <Route path="/ingredients/:id" element={<IngredientDetails />} />
+          <Route path={RoutesPath.Ingredient} element={<IngredientDetails />} />
         </Routes>
 
         {location.state?.backgroundLocation && (
           <Routes>
             <Route
-              path="/ingredients/:id"
+              path={RoutesPath.Ingredient}
               element={
                 <Modal hideFunction={hideModal} isOver={true}>
                   <IngredientDetails></IngredientDetails>
@@ -176,7 +177,7 @@ export function App() {
               }
             />
             <Route
-              path="/feed/:id"
+              path={RoutesPath.Feed}
               element={
                 <Modal hideFunction={hideModal} isOver={true}>
                   <OrderViewDetailed />

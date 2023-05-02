@@ -1,9 +1,40 @@
 import { FC, PropsWithChildren } from "react";
+import {
+  WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR,
+  WS_CONNECTION_START,
+  WS_CONNECTION_STOP,
+  WS_CONNECTION_SUCCESS, WS_GET_MESSAGE,
+  WS_SEND_MESSAGE
+} from "../services/actions/websocket";
 
 export type FCC<P = {}> = FC<PropsWithChildren<P>>;
 
 export type TIngredientType = "bun" | "main" | "sauce";
 export type TOrderStatus = "done" | "pending" | "created";
+
+export enum RoutesPath {
+  Root="/",
+  Register="/register",
+  Login="/login",
+  FogotPassword="/forgot-password",
+  ResetPassword="/reset-password",
+  Profile="/profile",
+  UserOrders="/profile/orders",
+  UserOrder="/profile/orders/:id",
+  Feeds="/feed",
+  Feed="/feed/:id",
+  Ingredient="/ingredients/:id",
+}
+
+export interface IWSActions {
+  wsInit: typeof WS_CONNECTION_START,
+  wsClose:typeof WS_CONNECTION_STOP,
+  wsSendMessage: typeof WS_SEND_MESSAGE,
+  onOpen: typeof WS_CONNECTION_SUCCESS,
+  onClose: typeof WS_CONNECTION_CLOSED,
+  onError: typeof WS_CONNECTION_ERROR,
+  onMessage: typeof WS_GET_MESSAGE,
+}
 
 export interface IName {
   name: string;
