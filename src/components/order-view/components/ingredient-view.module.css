@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+    align-items: center;
+    justify-content: start;
+
+}
+
+.priceArea {
+    margin: 0 0 0 auto;
+}

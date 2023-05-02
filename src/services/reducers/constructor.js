@@ -3,14 +3,14 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   REPLACE_CONSTRUCTOR_ITEM,
-  SET_TOTAL
+  SET_TOTAL,
 } from "../actions/constructor";
 
 import { replaceItem } from "../../utils/common";
 
 export const initStateConstructor = {
   bun: null,
-  total:0,
+  total: 0,
   ingredients: [],
 };
 

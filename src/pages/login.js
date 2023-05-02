@@ -15,10 +15,7 @@ export function LoginPage() {
   const { form, onFormChange } = useForm(dispatch);
   const { email, password } = form;
 
-
-  const { registerRequest } = useSelector(
-    (state) => state.register
-  );
+  const { registerRequest } = useSelector((state) => state.register);
 
   const onFormSubmit = (e) => {
     e.preventDefault();

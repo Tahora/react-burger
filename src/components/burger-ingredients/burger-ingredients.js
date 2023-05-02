@@ -20,6 +20,7 @@ export function BurgerIngredients() {
   const burgerData = useSelector((store) => store.ingredients.ingredients);
 
   const [current, setCurrent] = React.useState(tabItemBun);
+  const [programScroll, setProgramScroll] = React.useState(false);
 
   const buns = useMemo(
     () => burgerData.filter((item) => item.type === strBun),
@@ -38,7 +39,31 @@ export function BurgerIngredients() {
   const refSauce = useRef(null);
   const refMain = useRef(null);
 
+  const scrollToSection = (tabValue) => {
+    setProgramScroll(true);
+    setCurrent(tabValue);
+    switch (tabValue) {
+      case tabItemBun: {
+        refBun.current?.scrollIntoView();
+        break;
+      }
+      case tabItemSauce: {
+        refSauce.current?.scrollIntoView();
+        break;
+      }
+      case tabItemMain: {
+        refMain.current?.scrollIntoView();
+        break;
+      }
+    }
+    setProgramScroll(false);
+  };
+
+
   function handleScroll(e) {
+    if (programScroll) {
+      return;
+    }
     const t = e.target.getBoundingClientRect().top;
     const topb = Math.abs(refBun.current?.getBoundingClientRect().top - t);
     const tops = Math.abs(refSauce.current?.getBoundingClientRect().top - t);
@@ -57,21 +82,21 @@ export function BurgerIngredients() {
         <Tab
           value={tabItemBun}
           active={current === tabItemBun}
-          onClick={setCurrent}
+          onClick={scrollToSection}
         >
           Булки
         </Tab>
         <Tab
           value={tabItemSauce}
           active={current === tabItemSauce}
-          onClick={setCurrent}
+          onClick={scrollToSection}
         >
           Соусы
         </Tab>
         <Tab
           value={tabItemMain}
           active={current === tabItemMain}
-          onClick={setCurrent}
+          onClick={scrollToSection}
         >
           Начинки
         </Tab>

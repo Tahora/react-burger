@@ -8,6 +8,7 @@ import { initStateIngredients, ingredientsReducer } from "./ingredients";
 import { initStateOrder, orderReducer } from "./order";
 import { initStateForms, formReducer } from "./forms";
 import { initStateRegister, registerReducer } from "./authorization";
+import { initialStateWsSocket, wsReducer } from "./websocket";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   constructor: constructorReducer,
   forms: formReducer,
   register: registerReducer,
+  ws: wsReducer,
 });
 
 export const initState = {
@@ -25,4 +27,5 @@ export const initState = {
   constructor: initStateConstructor,
   forms: initStateForms,
   register: initStateRegister,
+  ws: initialStateWsSocket,
 };

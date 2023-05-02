@@ -15,3 +15,15 @@ export const tokens = {
   refreshToken: "refreshToken",
   accessToken: "accessToken",
 };
+
+export const orderStates = {
+  done: "Выполнен",
+  pending: "Готовится",
+  created: "Создан",
+};
+
+export const wsCloseReason = {
+  closeNormal: 1000,
+  closeGoingAway: 1001,
+  closedNoStatus: 1005,
+};

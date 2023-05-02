@@ -1,5 +1,6 @@
 .container {
-    display: flex;
+    display: grid;
+    grid-template-columns:  auto auto;
     column-gap: 60px;
 }
 
@@ -31,5 +32,4 @@
 .content {
     display: flex;
     flex-direction: column;
-    width: 320px;
 }
